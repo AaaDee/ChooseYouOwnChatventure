@@ -1,8 +1,8 @@
 import {describe, expect, test} from '@jest/globals';
-
-import * as supertest from 'supertest';
+import supertest from 'supertest';
 
 import app from '../app';
+
 const api = supertest(app)
 
 describe('testing works', () => {
