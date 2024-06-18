@@ -1,12 +1,13 @@
 {
   "main": "index.ts",
   "scripts": {
-    "start": "NODE_ENV=production node index.js",
-    "dev": "NODE_ENV=development nodemon index.js",
+    "start": "NODE_ENV=production node index.ts",
+    "dev": "NODE_ENV=development nodemon index.ts",
     "test": "NODE_ENV=test npx jest"
   },
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
