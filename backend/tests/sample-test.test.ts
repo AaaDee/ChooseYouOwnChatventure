@@ -3,7 +3,7 @@ import supertest from 'supertest';
 
 import app from '../app';
 
-const api = supertest(app)
+const api = supertest(app);
 
 describe('testing works', () => {
   test('adds 1 + 2 to equal 3', () => {
@@ -15,7 +15,7 @@ describe('testing works', () => {
       .get('/')
       .expect(200)
       .expect('<h1>Hello World!</h1>'
-)
+);
   });
 });
 
