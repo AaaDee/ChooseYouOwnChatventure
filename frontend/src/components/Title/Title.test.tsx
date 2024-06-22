@@ -4,6 +4,6 @@ import { Title } from '.';
 
 test('renders title text', () => {
   render(<Title />);
-  const linkElement = screen.getByText(/Choose Your Own Chatventure/);
-  expect(linkElement).toBeInTheDocument();
+  const element = screen.getByText(/Choose Your Own Chatventure/);
+  expect(element).toBeInTheDocument();
 });
