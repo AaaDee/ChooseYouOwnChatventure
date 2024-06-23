@@ -5,7 +5,7 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier"
   ],
-  "plugins": ["@typescript-eslint", "prettier"],
+  "plugins": ["@typescript-eslint", "prettier", "jest"],
   "env": {
     "browser": true,
     "es6": true,
@@ -24,10 +24,20 @@
     ],
     "no-case-declarations": "off",
     "prettier/prettier": 2
-
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["test/**"],
+      "plugins": ["jest"],
+      "rules": {
+        // you should turn the original rule off *only* for test files
+        "@typescript-eslint/unbound-method": "off",
+        "jest/unbound-method": "error"
+      }
+    }
+  ]
 }
