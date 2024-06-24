@@ -5,6 +5,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, test } from '@jest/globals';
 import { requestDummyResponse } from './requestDummyResponse';
+import { mockChoices } from '../tests/mocks';
 
 describe('Open api text completions', () => {
   test('create is called', async () => {
@@ -20,19 +21,9 @@ describe('Open api text completions', () => {
   });
 });
 
-const mockResponse = {
-  choices: [
-    {
-      message: {
-        content: 'this is a mock'
-      }
-    }
-  ]
-};
-
 function constructMockCreate() {
   const mockCreate = jest.fn();
-  mockCreate.mockReturnValue(mockResponse);
+  mockCreate.mockReturnValue(mockChoices);
 
   const mockCompletions = {
     create: mockCreate
