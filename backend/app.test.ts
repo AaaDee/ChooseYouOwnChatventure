@@ -24,7 +24,6 @@ describe('app works at basic level;', () => {
     const mock_create = jest.fn().mockResolvedValue(mockChoices);
 
     const mock_api_client = {
-      test: 'hi!',
       chat: {
         completions: {
           create: mock_create
