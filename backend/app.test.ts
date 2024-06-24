@@ -4,7 +4,7 @@
 import { describe, test } from '@jest/globals';
 import supertest from 'supertest';
 import app from './app';
-import { getOpenAIClient } from './openai/getOpenAIClient';
+import { getOpenAiCompletions } from './openai/getOpenAIClient';
 import { mockChoices } from './tests/mocks';
 
 jest.mock('./openai/getOpenAIClient');
@@ -23,16 +23,12 @@ describe('app works at basic level;', () => {
   test('post returns json content', async () => {
     const mock_create = jest.fn().mockResolvedValue(mockChoices);
 
-    const mock_api_client = {
-      chat: {
-        completions: {
-          create: mock_create
-        }
-      }
+    const mock_api_completions = {
+      create: mock_create
     };
 
-    const openai_get_mock = getOpenAIClient as any;
-    openai_get_mock.mockReturnValue(mock_api_client);
+    const openai_get_mock = getOpenAiCompletions as any;
+    openai_get_mock.mockReturnValue(mock_api_completions);
     await api.post('/').expect('Content-Type', /application\/json/);
   });
 });
