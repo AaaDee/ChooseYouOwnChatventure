@@ -1,4 +1,4 @@
-export const REQUEST_INITIAL_CHOICES = `Create an excerpt of a Fighting Fantasy novel.
+export const PROMPT_INITIAL_CHOICES = `Create an excerpt of a Fighting Fantasy novel.
 
 Structure the response into JSON as follows:
 
@@ -10,6 +10,6 @@ Structure the response into JSON as follows:
 where content contains the text excerpt, excluding the player's choices. Choices is an array of exactly three choices that the player can make.
 `;
 
-export function generateFurtherChoices(choice: number): string {
+export function promptFurtherChoices(choice: number): string {
   return `The player has chosen ${choice}. Continue with the same format.`;
 }
