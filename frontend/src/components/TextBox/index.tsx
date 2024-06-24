@@ -2,8 +2,13 @@ import React from 'react';
 import { StyledTextBox } from './style';
 import { ChoiceButton } from '../ChoiceButton';
 import { ping } from '../../features/ping';
+import { Choice } from '../../types';
 
-export function TextBox() {
+interface Props {
+  choices: Choice[];
+}
+
+export function TextBox({ choices }: Props) {
   function onClick() {
     void (async () => {
       const resp = await ping();
@@ -14,7 +19,9 @@ export function TextBox() {
   return (
     <StyledTextBox>
       <div>text</div>
-      <ChoiceButton content="test" onClick={onClick} />
+      {choices.map((choice) => (
+        <ChoiceButton content={choice.content} onClick={onClick} />
+      ))}
     </StyledTextBox>
   );
 }
