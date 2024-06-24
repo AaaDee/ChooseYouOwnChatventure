@@ -1,7 +1,7 @@
 import express from 'express';
-import OpenAI from 'openai';
 import cors from 'cors';
 import { requestDummyResponse } from './openai/requestDummyResponse';
+import { getOpenAIClient } from './openai/getOpenAIClient';
 
 const app = express();
 
@@ -18,10 +18,7 @@ app.get('/ping', (_request, response) => {
 
 app.post('/', (_request, response) => {
   void (async function (): Promise<void> {
-    const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY
-    });
-
+    const openai = getOpenAIClient();
     const text = await requestDummyResponse(openai.chat.completions);
     response.json(text);
   })();
