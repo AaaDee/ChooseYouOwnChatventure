@@ -1,12 +1,15 @@
 import OpenAI from 'openai';
+import { ChatCompletionMessageParam } from 'openai/resources';
+import { OpenAIRoles } from './types';
+import { REQUEST_INITIAL_CHOICES } from './prompts';
 
 export const requestText = async (
-  _prompt: string,
+  messages: Array<ChatCompletionMessageParam>,
   completions: OpenAI.Chat.Completions
 ): Promise<string | null> => {
   try {
     const chatCompletion = await completions.create({
-      messages: [{ role: 'user', content: 'Say this is a test' }],
+      messages,
       model: 'gpt-3.5-turbo'
     });
     return chatCompletion.choices[0].message.content;
@@ -15,3 +18,16 @@ export const requestText = async (
     return null;
   }
 };
+
+export async function requestInitialChoices(
+  completions: OpenAI.Chat.Completions
+) {
+  const messages = [
+    {
+      role: OpenAIRoles.USER,
+      content: REQUEST_INITIAL_CHOICES
+    }
+  ];
+
+  return await requestText(messages, completions);
+}

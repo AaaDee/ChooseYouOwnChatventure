@@ -1,7 +1,7 @@
 import express from 'express';
-import { requestText } from './openai/requestText';
 import OpenAI from 'openai';
 import cors from 'cors';
+import { requestDummyResponse } from './openai/requestDummyResponse';
 
 const app = express();
 
@@ -22,7 +22,7 @@ app.post('/', (_request, response) => {
       apiKey: process.env.OPENAI_API_KEY
     });
 
-    const text = await requestText('hi', openai.chat.completions);
+    const text = await requestDummyResponse(openai.chat.completions);
     response.json(text);
   })();
 });

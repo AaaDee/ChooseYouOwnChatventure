@@ -4,18 +4,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, expect, test } from '@jest/globals';
-import { requestText } from './requestText';
+import { requestDummyResponse } from './requestDummyResponse';
 
 describe('Open api text completions', () => {
   test('create is called', async () => {
     const { mockCompletions, mockCreate } = constructMockCreate();
-    await requestText('test', mockCompletions);
+    await requestDummyResponse(mockCompletions);
     expect(mockCreate).toBeCalled();
   });
 
   test('parses the content', async () => {
     const { mockCompletions } = constructMockCreate();
-    const response = await requestText('test', mockCompletions);
+    const response = await requestDummyResponse(mockCompletions);
     expect(response).toEqual('this is a mock');
   });
 });

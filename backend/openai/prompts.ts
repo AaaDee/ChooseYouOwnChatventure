@@ -1,0 +1,15 @@
+export const REQUEST_INITIAL_CHOICES = `Create an excerpt of a Fighting Fantasy novel.
+
+Structure the response into JSON as follows:
+
+{
+	content,
+	choices
+}
+
+where content contains the text excerpt, excluding the player's choices. Choices is an array of exactly three choices that the player can make.
+`;
+
+export function generateFurtherChoices(choice: number): string {
+  return `The player has chosen ${choice}. Continue with the same format.`;
+}
