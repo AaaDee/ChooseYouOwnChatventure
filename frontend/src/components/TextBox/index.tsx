@@ -20,7 +20,11 @@ export function TextBox({ choices }: Props) {
     <StyledTextBox>
       <div>text</div>
       {choices.map((choice) => (
-        <ChoiceButton content={choice.content} onClick={onClick} />
+        <ChoiceButton
+          key={choice.id}
+          content={choice.content}
+          onClick={onClick}
+        />
       ))}
     </StyledTextBox>
   );
