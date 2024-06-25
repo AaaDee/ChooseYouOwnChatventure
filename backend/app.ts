@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import { requestDummyResponse } from './openai/requestDummyResponse';
-import { getOpenAiCompletions } from './openai/getOpenAIClient';
 
 const app = express();
 
@@ -18,8 +17,7 @@ app.get('/ping', (_request, response) => {
 
 app.post('/', (_request, response) => {
   void (async function (): Promise<void> {
-    const completions = getOpenAiCompletions();
-    const text = await requestDummyResponse(completions);
+    const text = await requestDummyResponse();
     response.json(text);
   })();
 });
