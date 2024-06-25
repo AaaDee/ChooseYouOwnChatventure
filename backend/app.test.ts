@@ -1,13 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { describe, test } from '@jest/globals';
 import supertest from 'supertest';
 import app from './app';
-import { getOpenAiCompletions } from './openai/getOpenAIClient';
-import { mockChoices } from './tests/mocks';
+import { requestDummyResponse } from './openai/requestDummyResponse';
 
-jest.mock('./openai/getOpenAIClient');
+jest.mock('./openai/requestDummyResponse');
 
 const api = supertest(app);
 
@@ -21,14 +17,8 @@ describe('app works at basic level;', () => {
   });
 
   test('post returns json content', async () => {
-    const mock_create = jest.fn().mockResolvedValue(mockChoices);
-
-    const mock_api_completions = {
-      create: mock_create
-    };
-
-    const openai_get_mock = getOpenAiCompletions as any;
-    openai_get_mock.mockReturnValue(mock_api_completions);
+    const mockedRequest = jest.mocked(requestDummyResponse);
+    mockedRequest.mockResolvedValue('test');
     await api.post('/').expect('Content-Type', /application\/json/);
   });
 });
