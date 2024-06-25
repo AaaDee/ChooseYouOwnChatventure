@@ -2,13 +2,11 @@ import React from 'react';
 import { StyledTextBox } from './style';
 import { ChoiceButton } from '../ChoiceButton';
 import { ping } from '../../features/ping';
-import { Choice } from '../../types';
+import { useSelector } from 'react-redux';
+import { selectChoices } from '../../features/choices/selectors';
 
-interface Props {
-  choices: Choice[];
-}
-
-export function TextBox({ choices }: Props) {
+export function TextBox() {
+  const choices = useSelector(selectChoices);
   function onClick() {
     void (async () => {
       const resp = await ping();

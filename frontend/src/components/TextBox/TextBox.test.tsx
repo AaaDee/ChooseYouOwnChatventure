@@ -2,6 +2,9 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { TextBox } from '.';
 import { Choice } from '../../types';
+import { useSelector } from 'react-redux';
+
+jest.mock('react-redux');
 
 const choices: Choice[] = [
   {
@@ -19,7 +22,9 @@ const choices: Choice[] = [
 ];
 
 test('renders a button for each choice', async () => {
-  render(<TextBox choices={choices} />);
+  const selector_mock = jest.mocked(useSelector);
+  selector_mock.mockReturnValue(choices);
+  render(<TextBox />);
   const elements = await screen.findAllByRole('button');
   expect(elements).toHaveLength(3);
 });
