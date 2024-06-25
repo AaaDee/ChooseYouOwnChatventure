@@ -21,10 +21,18 @@ const choices: Choice[] = [
   }
 ];
 
-test('renders a button for each choice', async () => {
+test('renders start view if no choices', async () => {
+  const selector_mock = jest.mocked(useSelector);
+  selector_mock.mockReturnValue([]);
+  render(<TextBox />);
+  const element = await screen.findByTestId('start_button');
+  expect(element).toBeInTheDocument();
+});
+
+test('renders ongoing view if has choices', async () => {
   const selector_mock = jest.mocked(useSelector);
   selector_mock.mockReturnValue(choices);
   render(<TextBox />);
-  const elements = await screen.findAllByRole('button');
-  expect(elements).toHaveLength(3);
+  const element = await screen.findByTestId('ongoing_text');
+  expect(element).toBeInTheDocument();
 });
