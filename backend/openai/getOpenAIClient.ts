@@ -6,8 +6,3 @@ export function getOpenAIClient() {
   });
   return openai;
 }
-
-export function getOpenAiCompletions() {
-  const openai = getOpenAIClient();
-  return openai.chat.completions;
-}
