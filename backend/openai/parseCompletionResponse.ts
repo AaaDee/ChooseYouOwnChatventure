@@ -1,6 +1,7 @@
 import { Choice, TextEntry } from '../types';
 
 export function parseCompletionResponse(response: string | null): TextEntry {
+  console.log(response);
   if (response === null) {
     throw new Error('null response');
   }
@@ -45,7 +46,7 @@ function parseChoices(choices: unknown): Choice[] {
   const result: Choice[] = choices.map((choice: string, index) => {
     return {
       content: choice,
-      index
+      index: index + 1 // from 0 to 1-based indexing
     };
   });
   return result;

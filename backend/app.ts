@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { requestDummyPrompt } from './openai/requestDummyPrompt';
 import { requestStartPrompt } from './openai/requestStartPrompt';
+import { requestOngoingPrompt } from './openai/requestOngoingPrompt';
 
 const app = express();
 
@@ -26,6 +27,14 @@ app.post('/', (_request, response) => {
 app.post('/start', (_request, response) => {
   void (async function (): Promise<void> {
     const prompt = await requestStartPrompt();
+    response.send(prompt);
+  })();
+});
+
+app.post('/ongoing', (request, response) => {
+  void (async function (): Promise<void> {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const prompt = await requestOngoingPrompt(request.body);
     response.send(prompt);
   })();
 });

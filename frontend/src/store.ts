@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import choicesReducer from './features/entry/slice';
+import entryReducer from './features/entry/slice';
+import historyReducer from './features/history/slice';
 
 export const store = configureStore({
   reducer: {
-    entry: choicesReducer
+    entry: entryReducer,
+    history: historyReducer
   }
 });
 
