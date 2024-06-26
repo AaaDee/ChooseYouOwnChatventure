@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import choicesReducer from './features/choices/slice';
+import choicesReducer from './features/entry/slice';
 
 export const store = configureStore({
   reducer: {
-    choices: choicesReducer
+    entry: choicesReducer
   }
 });
 

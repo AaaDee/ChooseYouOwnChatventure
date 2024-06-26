@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyledTextBox } from './style';
 import { useSelector } from 'react-redux';
-import { selectChoices } from '../../features/choices/selectors';
+import { selectChoices } from '../../features/entry/selectors';
 import { StartView } from '../StartView';
 import { OngoingView } from '../OngoingView';
 

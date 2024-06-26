@@ -1,4 +1,4 @@
-import { TextEntry } from '../types';
+import { Choice, TextEntry } from '../types';
 
 export function parseCompletionResponse(response: string | null): TextEntry {
   if (response === null) {
@@ -34,12 +34,19 @@ function parseContent(content: unknown): string {
   throw new Error('invalid content field');
 }
 
-function parseChoices(choices: unknown): string[] {
+function parseChoices(choices: unknown): Choice[] {
   if (!Array.isArray(choices)) {
     throw new Error('choices are not an array');
   }
   if (choices.some((choice) => typeof choice !== 'string')) {
     throw new Error('all choices are not strings');
   }
-  return choices as string[];
+
+  const result: Choice[] = choices.map((choice: string, index) => {
+    return {
+      content: choice,
+      index
+    };
+  });
+  return result;
 }
