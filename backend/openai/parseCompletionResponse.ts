@@ -1,20 +1,17 @@
 import { Choice, TextEntry } from '../types';
+import { isArray } from '../validators/isArray';
+import { isString } from '../validators/isString';
 
 export function parseCompletionResponse(response: string | null): TextEntry {
-  console.log(response);
   if (response === null) {
     throw new Error('null response');
   }
 
   let jsonResponse;
   try {
-    jsonResponse = JSON.parse(response) as unknown;
+    jsonResponse = JSON.parse(response) as object;
   } catch {
-    throw new Error('Invalid response');
-  }
-
-  if (!jsonResponse || typeof jsonResponse !== 'object') {
-    throw new Error('Incorrect or missing data');
+    throw new Error('Response is not a valid json');
   }
 
   if ('content' in jsonResponse && 'choices' in jsonResponse) {
@@ -29,25 +26,27 @@ export function parseCompletionResponse(response: string | null): TextEntry {
 }
 
 function parseContent(content: unknown): string {
-  if (typeof content === 'string' || content instanceof String) {
-    return content as string;
+  if (isString(content)) {
+    return content;
   }
   throw new Error('invalid content field');
 }
 
 function parseChoices(choices: unknown): Choice[] {
-  if (!Array.isArray(choices)) {
+  if (!isArray(choices)) {
     throw new Error('choices are not an array');
   }
-  if (choices.some((choice) => typeof choice !== 'string')) {
+  if (choices.some((choice: unknown) => !isString(choice))) {
     throw new Error('all choices are not strings');
   }
 
-  const result: Choice[] = choices.map((choice: string, index) => {
-    return {
-      content: choice,
-      index: index + 1 // from 0 to 1-based indexing
-    };
-  });
+  const result: Choice[] = (choices as string[]).map(
+    (choice: string, index) => {
+      return {
+        content: choice,
+        index: index + 1 // from 0 to 1-based indexing
+      };
+    }
+  );
   return result;
 }

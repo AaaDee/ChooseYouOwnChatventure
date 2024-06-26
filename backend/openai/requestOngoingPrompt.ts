@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
 import { TextEntry } from '../types';
 import { OpenAIRoles } from './types';
 import { PROMPT_INITIAL_CHOICES, promptFurtherChoices } from './prompts';
 import { requestCompletions } from './requestCompletions';
 import { parseCompletionResponse } from './parseCompletionResponse';
+import { parseOngoingRequest } from '../validators/parseOngoingRequest';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function requestOngoingPrompt(history: any) {
+export async function requestOngoingPrompt(data: object) {
+  const history = parseOngoingRequest(data);
   const choices: number[] = history.choices;
   const entries: TextEntry[] = history.entries;
 
