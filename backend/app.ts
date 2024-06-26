@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import { requestDummyResponse } from './openai/requestDummyResponse';
+import { requestDummyPrompt } from './openai/requestDummyPrompt';
+import { requestStartPrompt } from './openai/requestStartPrompt';
 
 const app = express();
 
@@ -17,8 +18,15 @@ app.get('/ping', (_request, response) => {
 
 app.post('/', (_request, response) => {
   void (async function (): Promise<void> {
-    const text = await requestDummyResponse();
+    const text = await requestDummyPrompt();
     response.json(text);
+  })();
+});
+
+app.post('/start', (_request, response) => {
+  void (async function (): Promise<void> {
+    const prompt = await requestStartPrompt();
+    response.send(prompt);
   })();
 });
 
