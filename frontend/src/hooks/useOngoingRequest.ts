@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEntry } from '../features/entry/slice';
@@ -8,6 +7,8 @@ import {
 } from '../features/history/selectors';
 import { selectEntry } from '../features/entry/selectors';
 import { setEntries, setSelectedChoices } from '../features/history/slice';
+import { TextEntry } from '../types';
+import { postRequest } from '../requests/postRequest';
 
 export function useOngoingRequest() {
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
@@ -27,12 +28,13 @@ export function useOngoingRequest() {
       dispatch(setEntries(entries));
       dispatch(setSelectedChoices(choices));
 
-      const response = await axios.post('http://localhost:3001/ongoing', {
+      const data = {
         entries,
         choices
-      });
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      dispatch(setEntry(response.data));
+      };
+
+      const response = await postRequest('ongoing', data);
+      dispatch(setEntry(response.data as TextEntry)); // todo validate
       setSelectedChoice(null);
     }
   }, [selectedChoice]);

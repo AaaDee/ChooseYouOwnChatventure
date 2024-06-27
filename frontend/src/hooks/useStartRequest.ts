@@ -1,7 +1,8 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setEntry } from '../features/entry/slice';
+import { TextEntry } from '../types';
+import { postRequest } from '../requests/postRequest';
 
 export function useStartRequest() {
   const [isRequested, setIsRequested] = useState(false);
@@ -12,9 +13,8 @@ export function useStartRequest() {
       void requestData();
     }
     async function requestData() {
-      const response = await axios.post('http://localhost:3001/start');
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      dispatch(setEntry(response.data));
+      const response = await postRequest('start', {});
+      dispatch(setEntry(response.data as TextEntry)); // todo validate
       setIsRequested(false);
     }
   }, [isRequested]);
