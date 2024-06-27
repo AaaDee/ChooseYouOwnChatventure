@@ -37,7 +37,13 @@ export function useOngoingRequest() {
       dispatch(setEntry(response.data as TextEntry)); // todo validate
       setSelectedChoice(null);
     }
-  }, [selectedChoice]);
+  }, [
+    currentEntry,
+    dispatch,
+    previousChoices,
+    previousEntries,
+    selectedChoice
+  ]);
 
   function requestOngoing(index: number) {
     return () => setSelectedChoice(index);

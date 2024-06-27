@@ -17,7 +17,7 @@ export function useStartRequest() {
       dispatch(setEntry(response.data as TextEntry)); // todo validate
       setIsRequested(false);
     }
-  }, [isRequested]);
+  }, [dispatch, isRequested]);
 
   function requestStart() {
     setIsRequested(true);
