@@ -4,10 +4,10 @@ import { OpenAIRoles } from './types';
 import { PROMPT_INITIAL_CHOICES, promptFurtherChoices } from './prompts';
 import { requestCompletions } from './requestCompletions';
 import { parseCompletionResponse } from './parseCompletionResponse';
-import { parseOngoingRequest } from '../validators/parseOngoingRequest';
+import { validateOngoingRequest } from '../validators/validateOngoingRequest';
 
 export async function requestOngoingPrompt(data: object) {
-  const history = parseOngoingRequest(data);
+  const history = validateOngoingRequest(data);
   const choices: number[] = history.choices;
   const entries: TextEntry[] = history.entries;
 
