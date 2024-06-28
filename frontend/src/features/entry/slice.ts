@@ -6,11 +6,13 @@ import { postRequest } from '../../requests/postRequest';
 export interface EntryState {
   content: string;
   choices: Choice[];
+  isLoading: boolean;
 }
 
 const initialState: EntryState = {
   choices: [],
-  content: ''
+  content: '',
+  isLoading: false
 };
 
 export const fetchStartEntry = createAsyncThunk(
@@ -34,10 +36,13 @@ export const choicesSlice = createSlice({
     }
   },
   extraReducers: (builder: ActionReducerMapBuilder<EntryState>) => {
-    // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(fetchStartEntry.fulfilled, (state, action) => {
       state.choices = action.payload.choices;
       state.content = action.payload.content;
+      state.isLoading = false;
+    });
+    builder.addCase(fetchStartEntry.pending, (state, _action) => {
+      state.isLoading = true;
     });
   }
 });
