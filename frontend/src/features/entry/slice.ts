@@ -1,6 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import type { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit';
 import { Choice, TextEntry } from '../../types';
+import { postRequest } from '../../requests/postRequest';
 
 export interface EntryState {
   content: string;
@@ -11,6 +12,14 @@ const initialState: EntryState = {
   choices: [],
   content: ''
 };
+
+export const fetchStartEntry = createAsyncThunk(
+  'entry/fetchStartEntry',
+  async (_thunkAPI) => {
+    const response = await postRequest('start', {});
+    return response.data as TextEntry;
+  }
+);
 
 export const choicesSlice = createSlice({
   name: 'choices',
@@ -23,6 +32,13 @@ export const choicesSlice = createSlice({
       state.choices = action.payload.choices;
       state.content = action.payload.content;
     }
+  },
+  extraReducers: (builder: ActionReducerMapBuilder<EntryState>) => {
+    // Add reducers for additional action types here, and handle loading state as needed
+    builder.addCase(fetchStartEntry.fulfilled, (state, action) => {
+      state.choices = action.payload.choices;
+      state.content = action.payload.content;
+    });
   }
 });
 

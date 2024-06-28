@@ -1,20 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setEntry } from '../features/entry/slice';
-import { TextEntry } from '../types';
-import { postRequest } from '../requests/postRequest';
+import { fetchStartEntry } from '../features/entry/slice';
+import { useAppDispatch } from './useAppDispatch';
 
 export function useStartRequest() {
   const [isRequested, setIsRequested] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (isRequested) {
       void requestData();
     }
     async function requestData() {
-      const response = await postRequest('start', {});
-      dispatch(setEntry(response.data as TextEntry)); // todo validate
+      await dispatch(fetchStartEntry()); // todo validate
       setIsRequested(false);
     }
   }, [dispatch, isRequested]);
