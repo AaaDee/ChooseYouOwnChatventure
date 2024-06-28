@@ -6,8 +6,10 @@ import { requestCompletions } from './requestCompletions';
 import { parseCompletionResponse } from './parseCompletionResponse';
 import { validateOngoingRequest } from '../validators/validateOngoingRequest';
 
-export async function requestOngoingPrompt(data: object) {
-  const history = validateOngoingRequest(data);
+export async function requestOngoingPrompt(history: object) {
+  if (!validateOngoingRequest(history)) {
+    throw new Error('invalid data from ongoing request');
+  }
   const choices: number[] = history.choices;
   const entries: TextEntry[] = history.entries;
 

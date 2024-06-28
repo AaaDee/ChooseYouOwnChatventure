@@ -15,10 +15,15 @@ const initialState: EntryState = {
   isLoading: false
 };
 
-export const fetchStartEntry = createAsyncThunk(
+interface EntryRequestData {
+  endpoint: string;
+  data: object;
+}
+
+export const fetchEntry = createAsyncThunk(
   'entry/fetchStartEntry',
-  async (_thunkAPI) => {
-    const response = await postRequest('start', {});
+  async (data: EntryRequestData, _thunkAPI) => {
+    const response = await postRequest(data.endpoint, data.data);
     return response.data as TextEntry;
   }
 );
@@ -36,12 +41,12 @@ export const choicesSlice = createSlice({
     }
   },
   extraReducers: (builder: ActionReducerMapBuilder<EntryState>) => {
-    builder.addCase(fetchStartEntry.fulfilled, (state, action) => {
+    builder.addCase(fetchEntry.fulfilled, (state, action) => {
       state.choices = action.payload.choices;
       state.content = action.payload.content;
       state.isLoading = false;
     });
-    builder.addCase(fetchStartEntry.pending, (state, _action) => {
+    builder.addCase(fetchEntry.pending, (state, _action) => {
       state.isLoading = true;
     });
   }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchStartEntry } from '../features/entry/slice';
+import { fetchEntry } from '../features/entry/slice';
 import { useAppDispatch } from './useAppDispatch';
 
 export function useStartRequest() {
@@ -11,7 +11,11 @@ export function useStartRequest() {
       void requestData();
     }
     async function requestData() {
-      await dispatch(fetchStartEntry()); // todo validate
+      const requestData = {
+        endpoint: 'start',
+        data: {}
+      };
+      await dispatch(fetchEntry(requestData)); // todo validate
       setIsRequested(false);
     }
   }, [dispatch, isRequested]);

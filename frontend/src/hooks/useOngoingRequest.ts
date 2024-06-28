@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setEntry } from '../features/entry/slice';
+import { useSelector } from 'react-redux';
+import { fetchEntry } from '../features/entry/slice';
 import {
   selectEntries,
   selectSelectedChoices
 } from '../features/history/selectors';
 import { selectEntry } from '../features/entry/selectors';
 import { setEntries, setSelectedChoices } from '../features/history/slice';
-import { TextEntry } from '../types';
-import { postRequest } from '../requests/postRequest';
+import { useAppDispatch } from './useAppDispatch';
 
 export function useOngoingRequest() {
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const previousEntries = useSelector(selectEntries);
   const previousChoices = useSelector(selectSelectedChoices);
   const currentEntry = useSelector(selectEntry);
@@ -22,6 +21,7 @@ export function useOngoingRequest() {
       void requestData();
     }
     async function requestData() {
+      setSelectedChoice(null);
       const entries = [...previousEntries, currentEntry];
       const choices = [...previousChoices, selectedChoice as number];
 
@@ -33,17 +33,14 @@ export function useOngoingRequest() {
         choices
       };
 
-      const response = await postRequest('ongoing', data);
-      dispatch(setEntry(response.data as TextEntry)); // todo validate
-      setSelectedChoice(null);
+      const requestData = {
+        endpoint: 'ongoing',
+        data
+      };
+
+      await dispatch(fetchEntry(requestData)); // todo validate
     }
-  }, [
-    currentEntry,
-    dispatch,
-    previousChoices,
-    previousEntries,
-    selectedChoice
-  ]);
+  }, [dispatch, selectedChoice]);
 
   function requestOngoing(index: number) {
     return () => setSelectedChoice(index);
