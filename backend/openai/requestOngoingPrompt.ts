@@ -3,7 +3,6 @@ import { TextEntry } from '../types';
 import { OpenAIRoles } from './types';
 import { PROMPT_INITIAL_CHOICES, promptFurtherChoices } from './prompts';
 import { requestCompletions } from './requestCompletions';
-import { parseCompletionResponse } from './parseCompletionResponse';
 import { validateOngoingRequest } from '../validators/validateOngoingRequest';
 
 export async function requestOngoingPrompt(history: object) {
@@ -40,5 +39,5 @@ export async function requestOngoingPrompt(history: object) {
   console.log(messageHistory);
   const response = await requestCompletions(messageHistory);
   console.log(response);
-  return parseCompletionResponse(response);
+  return response;
 }
