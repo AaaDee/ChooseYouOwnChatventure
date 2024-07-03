@@ -9,6 +9,10 @@ export function OngoingView() {
   const content = useSelector(selectContent);
   const requestOngoing = useOngoingRequest();
 
+  if (!choices) {
+    return null;
+  }
+
   return (
     <>
       <div data-testid="ongoing_text">{content}</div>

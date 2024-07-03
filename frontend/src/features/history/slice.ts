@@ -21,10 +21,17 @@ export const choicesSlice = createSlice({
     },
     setSelectedChoices(state, action: PayloadAction<number[]>) {
       state.selectedChoices = action.payload;
+    },
+    addEntry(state, action: PayloadAction<TextEntry>) {
+      state.entries.push(action.payload);
+    },
+    addSelectedChoice(state, action: PayloadAction<number>) {
+      state.selectedChoices.push(action.payload);
     }
   }
 });
 
-export const { setEntries, setSelectedChoices } = choicesSlice.actions;
+export const { addEntry, addSelectedChoice, setEntries, setSelectedChoices } =
+  choicesSlice.actions;
 
 export default choicesSlice.reducer;

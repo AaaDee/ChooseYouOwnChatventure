@@ -1,18 +1,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit';
-import { Choice, TextEntry } from '../../types';
+import { TextEntry } from '../../types';
 import { postRequest } from '../../requests/postRequest';
 
 export interface EntryState {
-  content: string;
-  choices: Choice[];
-  isLoading: boolean;
+  entry?: TextEntry;
+  status: EntryStateStatus;
+}
+
+export enum EntryStateStatus {
+  IDLE = 'idle',
+  REQUESTED = 'requested',
+  LOADING = 'loading'
 }
 
 const initialState: EntryState = {
-  choices: [],
-  content: '',
-  isLoading: false
+  status: EntryStateStatus.IDLE
 };
 
 interface EntryRequestData {
@@ -32,27 +35,25 @@ export const choicesSlice = createSlice({
   name: 'choices',
   initialState,
   reducers: {
-    setChoices(state, action: PayloadAction<Choice[]>) {
-      state.choices = action.payload;
-    },
     setEntry(state, action: PayloadAction<TextEntry>) {
-      state.choices = action.payload.choices;
-      state.content = action.payload.content;
+      state.entry = action.payload;
+    },
+    setStatusToRequested(state) {
+      state.status = EntryStateStatus.REQUESTED;
     }
   },
   extraReducers: (builder: ActionReducerMapBuilder<EntryState>) => {
     builder.addCase(fetchEntry.fulfilled, (state, action) => {
-      state.choices = action.payload.choices;
-      state.content = action.payload.content;
-      state.isLoading = false;
+      state.entry = action.payload;
+      state.status = EntryStateStatus.IDLE;
     });
     builder.addCase(fetchEntry.pending, (state, _action) => {
-      state.isLoading = true;
+      state.status = EntryStateStatus.LOADING;
     });
   }
 });
 
 // Action creators are generated for each case reducer function
-export const { setChoices, setEntry } = choicesSlice.actions;
+export const { setEntry, setStatusToRequested } = choicesSlice.actions;
 
 export default choicesSlice.reducer;

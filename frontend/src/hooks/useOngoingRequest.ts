@@ -1,33 +1,39 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { fetchEntry } from '../features/entry/slice';
+import { fetchEntry, setStatusToRequested } from '../features/entry/slice';
 import {
   selectEntries,
   selectSelectedChoices
 } from '../features/history/selectors';
-import { selectEntry } from '../features/entry/selectors';
-import { setEntries, setSelectedChoices } from '../features/history/slice';
+import {
+  selectEntry,
+  selectStatusIsRequested
+} from '../features/entry/selectors';
+import { addEntry, addSelectedChoice } from '../features/history/slice';
 import { useAppDispatch } from './useAppDispatch';
 
 export function useOngoingRequest() {
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
   const dispatch = useAppDispatch();
-  const previousEntries = useSelector(selectEntries);
-  const previousChoices = useSelector(selectSelectedChoices);
+  const entries = useSelector(selectEntries);
+  const choices = useSelector(selectSelectedChoices);
   const currentEntry = useSelector(selectEntry);
+  const isRequested = useSelector(selectStatusIsRequested);
 
   useEffect(() => {
-    if (selectedChoice !== null) {
+    if (currentEntry && selectedChoice !== null) {
+      setSelectedChoice(null);
+      dispatch(addEntry(currentEntry));
+      dispatch(addSelectedChoice(selectedChoice));
+      dispatch(setStatusToRequested());
+    }
+  }, [currentEntry, dispatch, selectedChoice]);
+
+  useEffect(() => {
+    if (isRequested) {
       void requestData();
     }
     async function requestData() {
-      setSelectedChoice(null);
-      const entries = [...previousEntries, currentEntry];
-      const choices = [...previousChoices, selectedChoice as number];
-
-      dispatch(setEntries(entries));
-      dispatch(setSelectedChoices(choices));
-
       const data = {
         entries,
         choices
@@ -38,9 +44,9 @@ export function useOngoingRequest() {
         data
       };
 
-      await dispatch(fetchEntry(requestData)); // todo validate
+      await dispatch(fetchEntry(requestData));
     }
-  }, [dispatch, selectedChoice]);
+  }, [choices, dispatch, entries, isRequested]);
 
   function requestOngoing(index: number) {
     return () => setSelectedChoice(index);

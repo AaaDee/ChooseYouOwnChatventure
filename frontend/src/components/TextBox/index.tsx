@@ -7,7 +7,7 @@ import { OngoingView } from '../OngoingView';
 
 export function TextBox() {
   const choices = useSelector(selectChoices);
-  const hasChoices = choices.length > 0;
+  const hasChoices = choices && choices.length > 0;
 
   return (
     <StyledTextBox>
