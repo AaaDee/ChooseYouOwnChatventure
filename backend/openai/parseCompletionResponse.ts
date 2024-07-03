@@ -1,6 +1,7 @@
 import { Choice, TextEntry } from '../types';
 import { isArray } from '../validators/isArray';
 import { isString } from '../validators/isString';
+import { v4 as uuidv4 } from 'uuid';
 
 export function parseCompletionResponse(response: string | null): TextEntry {
   if (response === null) {
@@ -16,7 +17,7 @@ export function parseCompletionResponse(response: string | null): TextEntry {
 
   if ('content' in jsonResponse && 'choices' in jsonResponse) {
     const entry: TextEntry = {
-      id: 'id',
+      id: uuidv4(),
       content: parseContent(jsonResponse.content),
       choices: parseChoices(jsonResponse.choices)
     };
