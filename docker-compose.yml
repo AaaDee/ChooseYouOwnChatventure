@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  front:
+    image: chat-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./front:/usr/src/app
+    ports:
+      - 3000:3000
+    container_name: front
+  back:
+    image: chat-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./back/:/usr/src/app
+    ports:
+      - 3001:3001
