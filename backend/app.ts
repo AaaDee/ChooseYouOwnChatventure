@@ -3,6 +3,7 @@ import cors from 'cors';
 import { requestDummyPrompt } from './openai/requestDummyPrompt';
 import { requestStartPrompt } from './openai/requestStartPrompt';
 import { requestOngoingPrompt } from './openai/requestOngoingPrompt';
+import { mockEntry } from './tests/mocks';
 
 const app = express();
 
@@ -33,10 +34,14 @@ app.post('/start', (_request, response) => {
 
 app.post('/ongoing', (request, response) => {
   void (async function (): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const prompt = await requestOngoingPrompt(request.body);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const prompt = await requestOngoingPrompt(request.body); // todo validate
     response.send(prompt);
   })();
+});
+
+app.post('/dummy', (_request, response) => {
+  response.send(mockEntry);
 });
 
 export default app;

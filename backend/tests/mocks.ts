@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+import { TextEntry } from '../types';
 
 export const mockOpenAiCompletionResponse: OpenAI.Chat.Completions.ChatCompletion =
   {
@@ -23,3 +24,12 @@ export const mockOpenAiCompletionResponse: OpenAI.Chat.Completions.ChatCompletio
       }
     ]
   };
+
+export const mockEntry: TextEntry = {
+  id: 'test',
+  content: 'testing texting',
+  choices: [
+    { index: 1, content: 'do something' },
+    { index: 2, content: 'do something else' }
+  ]
+};
