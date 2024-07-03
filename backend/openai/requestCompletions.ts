@@ -17,8 +17,8 @@ export const requestCompletions = async (
       completions.choices[0].message.content
     );
     return response;
-  } catch {
-    console.log('error!');
+  } catch (error) {
+    console.log(error, completions.choices[0].message.content);
   }
   return null;
 };
