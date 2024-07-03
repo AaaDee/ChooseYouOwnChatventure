@@ -13,3 +13,15 @@ where content contains the text excerpt, excluding the player's choices. Choices
 export function promptFurtherChoices(choice: number): string {
   return `The player has chosen ${choice}. Continue with the same format.`;
 }
+
+export const PROMPT_ERROR_FIX = `
+The previous message is not in correct format.
+Structure the response into JSON as follows:
+
+{
+	content,
+	choices
+}
+
+where content contains the text excerpt, excluding the player's choices. Choices is an array of exactly three choices that the player can make.
+`;
