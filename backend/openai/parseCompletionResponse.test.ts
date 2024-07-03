@@ -15,6 +15,6 @@ describe('completions parser', () => {
 
   test('parses a choice properly', () => {
     const entry = parseCompletionResponse(mockResponse);
-    expect(entry.choices[0]).toEqual('one');
+    expect(entry.choices[0].content).toEqual('one');
   });
 });

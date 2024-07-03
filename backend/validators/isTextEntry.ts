@@ -1,6 +1,6 @@
 import { TextEntry } from '../types';
 
 // todo
-export function isTextEntry(data: unknown): data is TextEntry {
+export function isTextEntry(_data: unknown): _data is TextEntry {
   return true;
 }
