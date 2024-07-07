@@ -2,20 +2,15 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit';
 import { TextEntry } from '../../types';
 import { postRequest } from '../../requests/postRequest';
+import { StateStatus } from '../enums';
 
 export interface EntryState {
   entry?: TextEntry;
-  status: EntryStateStatus;
-}
-
-export enum EntryStateStatus {
-  IDLE = 'idle',
-  REQUESTED = 'requested',
-  LOADING = 'loading'
+  status: StateStatus;
 }
 
 const initialState: EntryState = {
-  status: EntryStateStatus.IDLE
+  status: StateStatus.IDLE
 };
 
 interface EntryRequestData {
@@ -39,16 +34,16 @@ export const choicesSlice = createSlice({
       state.entry = action.payload;
     },
     setStatusToRequested(state) {
-      state.status = EntryStateStatus.REQUESTED;
+      state.status = StateStatus.REQUESTED;
     }
   },
   extraReducers: (builder: ActionReducerMapBuilder<EntryState>) => {
     builder.addCase(fetchEntry.fulfilled, (state, action) => {
       state.entry = action.payload;
-      state.status = EntryStateStatus.IDLE;
+      state.status = StateStatus.IDLE;
     });
     builder.addCase(fetchEntry.pending, (state, _action) => {
-      state.status = EntryStateStatus.LOADING;
+      state.status = StateStatus.LOADING;
     });
   }
 });
