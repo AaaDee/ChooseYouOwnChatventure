@@ -7,6 +7,7 @@ import { requestStartPrompt } from './openai/requestStartPrompt';
 import { requestOngoingPrompt } from './openai/requestOngoingPrompt';
 import { mockEntry } from './tests/mocks';
 import { User } from './models/user';
+import { UserInput } from './types';
 
 const app = express();
 
@@ -47,25 +48,22 @@ app.post('/dummy', (_request, response) => {
   response.send(mockEntry);
 });
 
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-app.post('/user', async (request, response) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { username, password } = request.body;
+app.post('/user', (request, response) => {
+  void (async function (): Promise<void> {
+    const { username, password } = UserInput.parse(request.body);
+    const saltRounds = 10;
 
-  const saltRounds = 10;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-  const passwordHash = await bcrypt.hash(password, saltRounds);
+    const passwordHash = await bcrypt.hash(password, saltRounds);
 
-  const user = new User({
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    username,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    passwordHash
-  });
+    const user = new User({
+      username,
+      passwordHash
+    });
 
-  const savedUser = await user.save();
+    const savedUser = await user.save();
 
-  response.status(201).json(savedUser);
+    response.status(201).json(savedUser);
+  })();
 });
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -79,7 +77,7 @@ app.post('/login', async (request, response) => {
   const passwordCorrect =
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     user === null
-      ? false // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      ? false // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-argument
       : await bcrypt.compare(password, user.passwordHash || '');
 
   if (!(user && passwordCorrect)) {
