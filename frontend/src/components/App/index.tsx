@@ -15,7 +15,6 @@ export const App = () => {
       <Title />
       {userId && <TextBox />}
       {!userId && <LoginForm />}
-
       {isLoading && <Spinner />}
     </StyledApp>
   );
