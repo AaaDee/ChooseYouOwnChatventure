@@ -66,38 +66,31 @@ app.post('/user', (request, response) => {
   })();
 });
 
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-app.post('/login', async (request, response) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { username, password } = request.body;
+app.post('/login', (request, response) => {
+  void (async function (): Promise<void> {
+    const { username, password } = UserInput.parse(request.body);
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const user = await User.findOne({ username });
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const passwordCorrect =
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    user === null
-      ? false // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-argument
-      : await bcrypt.compare(password, user.passwordHash || '');
+    const user = await User.findOne({ username });
 
-  if (!(user && passwordCorrect)) {
-    return response.status(401).json({
-      error: 'invalid username or password'
-    });
-  }
+    const passwordCorrect =
+      user === null ? false : await bcrypt.compare(password, user.passwordHash);
 
-  const userForToken = {
-    username: user.username,
-    id: user._id
-  };
+    if (!(user && passwordCorrect)) {
+      response.status(401).json({
+        error: 'invalid username or password'
+      });
+      return;
+    }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-  const token = jwt.sign(userForToken, process.env.SECRET || '');
+    const userForToken = {
+      username: user.username,
+      id: user._id
+    };
 
-  response
-    .status(200)
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    .send({ token, username: user.username });
+    const token = jwt.sign(userForToken, process.env.SECRET || ''); // todo add check for process.env
+
+    response.status(200).send({ token, username: user.username });
+  })();
 });
 
 export default app;

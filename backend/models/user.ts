@@ -5,8 +5,8 @@ mongoose.set('strictQuery', false);
 const url = process.env.MONGODB_URI;
 
 const userSchema = new mongoose.Schema({
-  username: String,
-  passwordHash: String
+  username: { type: String, required: true },
+  passwordHash: { type: String, required: true }
 });
 
 console.log('connecting to', url);
