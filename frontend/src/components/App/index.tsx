@@ -6,15 +6,16 @@ import { useSelector } from 'react-redux';
 import { selectStatusIsLoading } from '../../features/entry/selectors';
 import { Spinner } from '../Spinner';
 import { LoginForm } from '../LoginForm';
+import { selectUser } from '../../features/user/selectors';
 
 export const App = () => {
   const isLoading = useSelector(selectStatusIsLoading);
-  const userId = useSelector(selectStatusIsLoading);
+  const username = useSelector(selectUser);
   return (
     <StyledApp>
       <Title />
-      {userId && <TextBox />}
-      {!userId && <LoginForm />}
+      {username && <TextBox />}
+      {!username && <LoginForm />}
       {isLoading && <Spinner />}
     </StyledApp>
   );
