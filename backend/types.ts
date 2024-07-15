@@ -21,3 +21,9 @@ export const UserInput = z.object({
 });
 
 export type UserInput = z.infer<typeof UserInput>;
+
+export const User = z.object({
+  username: z.string()
+});
+
+export type User = z.infer<typeof UserInput>;

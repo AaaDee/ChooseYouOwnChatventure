@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import { useLogin } from '../../hooks/useLogin';
 
 export function LoginForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const { username, password, setUsername, setPassword, submit, hasFailed } =
+    useLogin();
 
   const handleLogin = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log('logging in with', username, password);
+    submit();
   };
 
   return (
@@ -30,6 +30,7 @@ export function LoginForm() {
         />
       </div>
       <button type="submit">Login</button>
+      {hasFailed && <div>Login failed</div>}
     </form>
   );
 }

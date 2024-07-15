@@ -1,9 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import type { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit';
 import { StateStatus } from '../enums';
+import { postRequest } from '../../requests/postRequest';
+import { User, UserInput } from '../../types';
 
 export interface UserState {
-  id?: string;
+  username?: string;
   status: StateStatus;
 }
 
@@ -11,31 +13,44 @@ const initialState: UserState = {
   status: StateStatus.IDLE
 };
 
-// export const fetchEntry = createAsyncThunk(
-//   'entry/fetchStartEntry',
-//   async (data: EntryRequestData, _thunkAPI) => {
-//     const response = await postRequest(data.endpoint, data.data);
-//     return response.data as TextEntry;
-//   }
-// );
+interface UserRequestData {
+  endpoint: string;
+  data: UserInput;
+}
+
+export const fetchUser = createAsyncThunk(
+  'user/fetchUser',
+  async (data: UserRequestData, _thunkAPI) => {
+    const response = await postRequest(data.endpoint, data.data);
+
+    if (response.status == 401) {
+      throw new Error('unauthorised');
+    }
+
+    return response.data as User;
+  }
+);
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<string>) {
-      state.id = action.payload;
+      state.username = action.payload;
     }
+  },
+  extraReducers: (builder: ActionReducerMapBuilder<UserState>) => {
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
+      state.username = action.payload.username;
+      state.status = StateStatus.IDLE;
+    });
+    builder.addCase(fetchUser.pending, (state, _action) => {
+      state.status = StateStatus.LOADING;
+    });
+    builder.addCase(fetchUser.rejected, (state, _action) => {
+      state.status = StateStatus.FAILED;
+    });
   }
-  // extraReducers: (builder: ActionReducerMapBuilder<UserState>) => {
-  //   builder.addCase(fetchEntry.fulfilled, (state, action) => {
-  //     state.entry = action.payload;
-  //     state.status = EntryStateStatus.IDLE;
-  //   });
-  //   builder.addCase(fetchEntry.pending, (state, _action) => {
-  //     state.status = EntryStateStatus.LOADING;
-  //   });
-  // }
 });
 
 export const { setUser } = userSlice.actions;

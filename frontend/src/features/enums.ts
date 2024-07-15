@@ -1,5 +1,6 @@
 export enum StateStatus {
   IDLE = 'idle',
   REQUESTED = 'requested',
-  LOADING = 'loading'
+  LOADING = 'loading',
+  FAILED = 'failed'
 }

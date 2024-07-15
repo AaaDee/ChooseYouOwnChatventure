@@ -15,7 +15,7 @@ const initialState: EntryState = {
 
 interface EntryRequestData {
   endpoint: string;
-  data: object;
+  data: object; // todo fix type
 }
 
 export const fetchEntry = createAsyncThunk(
