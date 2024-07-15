@@ -1,16 +1,29 @@
 version: '3.8'
-
 services:
   front:
     image: chat-frontend
     build:
       context: ./frontend
-    ports:
-      - 3000:3000
     container_name: front
   back:
     image: chat-backend
     build:
       context: ./backend
+  nginx:
+    container_name: nginx
+    restart: unless-stopped
+    image: nginx
     ports:
-      - 3001:3001
+        - 80:80
+        - 443:443
+    volumes:
+        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+        - ./certbot/conf:/etc/letsencrypt
+        - ./certbot/www:/var/www/certbot
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes: 
+        - ./certbot/conf:/etc/letsencrypt
+        - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot -d chooseyourownchatventure.net --agree-tos --non-interactive
