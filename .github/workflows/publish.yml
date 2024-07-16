@@ -18,13 +18,13 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Build and push frontend
       uses: docker/build-push-action@v2
-      working-directory: ./frontend
       with:
         push: true
+        context: ./frontend
         tags: aaadee/chatventure-front:latest
     - name: Build and push backend
       uses: docker/build-push-action@v2
-      working-directory: ./backend
       with:
         push: true
+        context: ./backend
         tags: aaadee/chatventure-back:latest
