@@ -10,6 +10,8 @@ services:
     image: aaadee/chatventure-back
     build:
       context: ./backend
+    volumes:
+      - ./backend/.env:/usr/src/app/.env
   nginx:
     container_name: nginx
     restart: unless-stopped
