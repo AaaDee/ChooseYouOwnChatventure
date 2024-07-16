@@ -29,3 +29,11 @@ jobs:
         run: |
           npm run lint
         working-directory: ./backend
+      - name: test front
+        run: |
+          npm test
+        working-directory: ./frontend
+      - name: test back
+        run: |
+          npm test
+        working-directory: ./backend
