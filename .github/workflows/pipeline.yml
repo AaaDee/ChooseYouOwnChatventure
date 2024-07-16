@@ -19,8 +19,8 @@ jobs:
           node-version: '16'
       - name: npm install 
         run: |
-          npm install "./back"
-          npm install "./front"  
+          npm install "./backend"
+          npm install "./frontend"  
       - name: lint front
         run: |
           npm run lint
