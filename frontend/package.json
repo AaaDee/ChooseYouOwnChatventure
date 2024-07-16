@@ -1,5 +1,5 @@
 {
-  "name": "chatventure",
+  "name": "chatventure-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,6 +27,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!my-library-dir)/'",
+    "lint": "eslint --ext .ts .",
     "coverage": "react-scripts test --coverage . --transformIgnorePatterns 'node_modules/(?!my-library-dir)/'",
     "eject": "react-scripts eject"
   },

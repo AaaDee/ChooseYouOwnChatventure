@@ -1,4 +1,6 @@
 {
+  "name": "chatventure-backend",
+  "version": "0.1.0",
   "main": "index.ts",
   "scripts": {
     "start": "NODE_ENV=production npx tsx index.ts",
