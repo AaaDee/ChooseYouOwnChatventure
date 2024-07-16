@@ -48,23 +48,23 @@ app.post('/dummy', (_request, response) => {
   response.send(mockEntry);
 });
 
-app.post('/user', (request, response) => {
-  void (async function (): Promise<void> {
-    const { username, password } = UserInput.parse(request.body);
-    const saltRounds = 10;
+// app.post('/user', (request, response) => {
+//   void (async function (): Promise<void> {
+//     const { username, password } = UserInput.parse(request.body);
+//     const saltRounds = 10;
 
-    const passwordHash = await bcrypt.hash(password, saltRounds);
+//     const passwordHash = await bcrypt.hash(password, saltRounds);
 
-    const user = new User({
-      username,
-      passwordHash
-    });
+//     const user = new User({
+//       username,
+//       passwordHash
+//     });
 
-    const savedUser = await user.save();
+//     const savedUser = await user.save();
 
-    response.status(201).json(savedUser);
-  })();
-});
+//     response.status(201).json(savedUser);
+//   })();
+// });
 
 app.post('/login', (request, response) => {
   void (async function (): Promise<void> {
