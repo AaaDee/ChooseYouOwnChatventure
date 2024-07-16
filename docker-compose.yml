@@ -1,12 +1,13 @@
 version: '3.8'
+
 services:
   front:
-    image: chat-frontend
+    image: aaadee/chatventure-front
     build:
       context: ./frontend
     container_name: front
   back:
-    image: chat-backend
+    image: aaadee/chatventure-back
     build:
       context: ./backend
   nginx:
@@ -27,3 +28,10 @@ services:
         - ./certbot/conf:/etc/letsencrypt
         - ./certbot/www:/var/www/certbot
     command: certonly --webroot -w /var/www/certbot -d chooseyourownchatventure.net --agree-tos --non-interactive
+  watchtower:
+    image: containrrr/watchtower
+    environment:
+      -  WATCHTOWER_POLL_INTERVAL=600
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    container_name: watchtower
