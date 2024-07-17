@@ -5,6 +5,7 @@ import { requestStartPrompt } from './openai/requestStartPrompt';
 import { requestOngoingPrompt } from './openai/requestOngoingPrompt';
 import { mockEntry } from './tests/mocks';
 import { userRouter } from './controllers/userRouter';
+import { ChatHistory } from './types';
 
 const app = express();
 
@@ -33,8 +34,8 @@ app.post('/start', (_request, response) => {
 
 app.post('/ongoing', (request, response) => {
   void (async function (): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const prompt = await requestOngoingPrompt(request.body); // todo validate
+    const chatHistory = ChatHistory.parse(request.body);
+    const prompt = await requestOngoingPrompt(chatHistory);
     response.send(prompt);
   })();
 });

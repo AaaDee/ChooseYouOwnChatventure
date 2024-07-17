@@ -1,16 +1,11 @@
 import { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
-import { TextEntry } from '../types';
+import { ChatHistory } from '../types';
 import { OpenAIRoles } from './types';
 import { PROMPT_INITIAL_CHOICES, promptFurtherChoices } from './prompts';
 import { requestCompletions } from './requestCompletions';
-import { validateOngoingRequest } from '../validators/validateOngoingRequest';
 
-export async function requestOngoingPrompt(history: object) {
-  if (!validateOngoingRequest(history)) {
-    throw new Error('invalid data from ongoing request');
-  }
-  const choices: number[] = history.choices;
-  const entries: TextEntry[] = history.entries;
+export async function requestOngoingPrompt(history: ChatHistory) {
+  const { choices, entries } = history;
 
   const messageHistory: ChatCompletionMessageParam[] = [
     { role: OpenAIRoles.USER, content: PROMPT_INITIAL_CHOICES }
