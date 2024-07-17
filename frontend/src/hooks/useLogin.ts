@@ -18,7 +18,7 @@ export function useLogin() {
     }
     async function requestData() {
       const requestData = {
-        endpoint: 'login',
+        endpoint: 'user/login',
         data: { username, password }
       };
 
