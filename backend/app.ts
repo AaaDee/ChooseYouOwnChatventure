@@ -13,10 +13,6 @@ app.use(express.json());
 
 app.use('/user', userRouter);
 
-app.get('/', (_request, response) => {
-  response.send('<h1>Hello World!</h1>');
-});
-
 app.get('/ping', (_request, response) => {
   response.send('ping!');
 });
