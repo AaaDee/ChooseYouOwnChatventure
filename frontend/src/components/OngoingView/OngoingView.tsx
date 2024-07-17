@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectChoices, selectContent } from '../../features/entry/selectors';
-import { ChoiceButton } from '../ChoiceButton';
+import { ChoiceButton } from '../ChoiceButton/ChoiceButton';
 import { useOngoingRequest } from '../../hooks/useOngoingRequest';
 
 export function OngoingView() {

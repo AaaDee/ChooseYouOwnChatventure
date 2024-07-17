@@ -1,11 +1,11 @@
 import React from 'react';
-import { Title } from '../Title';
+import { Title } from '../Title/Title';
 import { StyledApp } from './style';
-import { TextBox } from '../TextBox';
+import { TextBox } from '../TextBox/TextBox';
 import { useSelector } from 'react-redux';
 import { selectStatusIsLoading } from '../../features/entry/selectors';
-import { Spinner } from '../Spinner';
-import { LoginForm } from '../LoginForm';
+import { Spinner } from '../Spinner/Spinner';
+import { LoginForm } from '../LoginForm/LoginForm';
 import { selectUser } from '../../features/user/selectors';
 
 export const App = () => {

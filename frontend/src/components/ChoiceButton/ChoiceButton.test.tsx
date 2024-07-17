@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { ChoiceButton } from '.';
+import { ChoiceButton } from './ChoiceButton';
 
 test('renders content', () => {
   const mockCallBack = jest.fn();
