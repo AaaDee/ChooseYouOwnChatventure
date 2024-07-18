@@ -1,13 +1,16 @@
-import mongoose from 'mongoose';
+import mongoose, { InferRawDocType } from 'mongoose';
 
 mongoose.set('strictQuery', false);
 
 const url = process.env.MONGODB_URI;
 
-const userSchema = new mongoose.Schema({
+const userSchemaDefinition = {
+  _id: { type: String, required: true },
   username: { type: String, required: true },
   passwordHash: { type: String, required: true }
-});
+};
+
+const userSchema = new mongoose.Schema(userSchemaDefinition);
 
 console.log('connecting to', url);
 mongoose
@@ -30,3 +33,5 @@ userSchema.set('toJSON', {
 });
 
 export const User = mongoose.model('User', userSchema);
+
+export type UserSchema = InferRawDocType<typeof userSchemaDefinition>;

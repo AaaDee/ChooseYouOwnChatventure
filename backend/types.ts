@@ -8,10 +8,11 @@ export const Choice = z.object({
 export type Choice = z.infer<typeof Choice>;
 
 export const User = z.object({
+  id: z.string(),
   username: z.string()
 });
 
-export type User = z.infer<typeof UserInput>;
+export type User = z.infer<typeof User>;
 
 export const UserInput = z.object({
   username: z.string(),
