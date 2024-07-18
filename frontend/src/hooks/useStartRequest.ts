@@ -13,7 +13,7 @@ export function useStartRequest() {
     }
     async function requestData() {
       const requestData = {
-        endpoint: 'start',
+        endpoint: 'prompt/start',
         data: {}
       };
       await dispatch(fetchEntry(requestData)); // todo validate

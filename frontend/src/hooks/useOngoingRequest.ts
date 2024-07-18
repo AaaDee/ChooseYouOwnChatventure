@@ -40,7 +40,7 @@ export function useOngoingRequest() {
       };
 
       const requestData = {
-        endpoint: 'ongoing',
+        endpoint: 'prompt/ongoing',
         data
       };
 
