@@ -10,7 +10,7 @@ export const requestCompletions = async (
 
   const completions = await openai.chat.completions.create({
     messages,
-    model: 'gpt-3.5-turbo'
+    model: 'gpt-4o-mini'
   });
   try {
     const response = parseCompletionResponse(
