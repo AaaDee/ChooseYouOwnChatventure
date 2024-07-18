@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchEntry } from '../features/entry/slice';
 import { useAppDispatch } from './useAppDispatch';
+import { setAudioMuted } from '../features/settings/slice';
 
 export function useStartRequest() {
   const [isRequested, setIsRequested] = useState(false);
@@ -21,6 +22,7 @@ export function useStartRequest() {
   }, [dispatch, isRequested]);
 
   function requestStart() {
+    dispatch(setAudioMuted(false));
     setIsRequested(true);
   }
   return requestStart;
