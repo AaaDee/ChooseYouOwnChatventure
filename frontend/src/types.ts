@@ -1,19 +1,18 @@
 import { z } from 'zod';
 
-export interface Choice {
-  index: number;
-  content: string;
-}
-export interface TextEntry {
-  id: string;
-  content: string;
-  choices: Choice[];
-}
+export const Choice = z.object({
+  index: z.number(),
+  content: z.string()
+});
 
-export interface ChatHistory {
-  entries: TextEntry[];
-  choices: number[];
-}
+export type Choice = z.infer<typeof Choice>;
+
+export const User = z.object({
+  id: z.string(),
+  username: z.string()
+});
+
+export type User = z.infer<typeof User>;
 
 export const UserInput = z.object({
   username: z.string(),
@@ -22,8 +21,28 @@ export const UserInput = z.object({
 
 export type UserInput = z.infer<typeof UserInput>;
 
-export const User = z.object({
-  username: z.string()
+export const TextEntry = z.object({
+  id: z.string(),
+  content: z.string(),
+  choices: Choice.array(),
+  description: z.string()
 });
 
-export type User = z.infer<typeof UserInput>;
+export type TextEntry = z.infer<typeof TextEntry>;
+
+export interface ChatHistory {
+  entries: TextEntry[];
+  choices: number[];
+}
+
+export const ChatHistory = z.object({
+  entries: TextEntry.array(),
+  choices: z.number().array()
+});
+
+export const PromptResponse = z.object({
+  entry: TextEntry,
+  image: z.string()
+});
+
+export type PromptResponse = z.infer<typeof PromptResponse>;

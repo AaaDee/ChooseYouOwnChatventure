@@ -24,7 +24,8 @@ export type UserInput = z.infer<typeof UserInput>;
 export const TextEntry = z.object({
   id: z.string(),
   content: z.string(),
-  choices: Choice.array()
+  choices: Choice.array(),
+  description: z.string()
 });
 
 export type TextEntry = z.infer<typeof TextEntry>;
@@ -38,3 +39,10 @@ export const ChatHistory = z.object({
   entries: TextEntry.array(),
   choices: z.number().array()
 });
+
+export const PromptResponse = z.object({
+  entry: TextEntry,
+  image: z.string()
+});
+
+export type PromptResponse = z.infer<typeof PromptResponse>;

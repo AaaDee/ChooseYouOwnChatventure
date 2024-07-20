@@ -7,6 +7,7 @@ export function parseCompletionResponse(response: string | null): TextEntry {
   if (response === null) {
     throw new Error('null response');
   }
+  console.log('response:', response);
 
   let jsonResponse;
   try {
@@ -15,11 +16,16 @@ export function parseCompletionResponse(response: string | null): TextEntry {
     throw new Error('Response is not a valid json');
   }
 
-  if ('content' in jsonResponse && 'choices' in jsonResponse) {
+  if (
+    'content' in jsonResponse &&
+    'choices' in jsonResponse &&
+    'description' in jsonResponse
+  ) {
     const entry: TextEntry = {
       id: uuidv4(),
       content: parseContent(jsonResponse.content),
-      choices: parseChoices(jsonResponse.choices)
+      choices: parseChoices(jsonResponse.choices),
+      description: parseDescription(jsonResponse.description)
     };
     return entry;
   }
@@ -31,6 +37,13 @@ function parseContent(content: unknown): string {
     return content;
   }
   throw new Error('invalid content field');
+}
+
+function parseDescription(content: unknown): string {
+  if (isString(content)) {
+    return content;
+  }
+  throw new Error('invalid description field');
 }
 
 function parseChoices(choices: unknown): Choice[] {

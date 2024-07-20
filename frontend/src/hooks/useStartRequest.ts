@@ -16,7 +16,7 @@ export function useStartRequest() {
         endpoint: 'prompt/start',
         data: {}
       };
-      await dispatch(fetchEntry(requestData)); // todo validate
+      await dispatch(fetchEntry(requestData));
       setIsRequested(false);
     }
   }, [dispatch, isRequested]);

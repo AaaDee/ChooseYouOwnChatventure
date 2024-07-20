@@ -3,6 +3,7 @@ import { ChatHistory } from '../types';
 import { OpenAIRoles } from './types';
 import { PROMPT_INITIAL_CHOICES, promptFurtherChoices } from './prompts';
 import { requestCompletions } from './requestCompletions';
+import { requestImage } from './requestImage.ts';
 
 export async function requestOngoingPrompt(history: ChatHistory) {
   const { choices, entries } = history;
@@ -32,7 +33,11 @@ export async function requestOngoingPrompt(history: ChatHistory) {
   });
 
   console.log(messageHistory);
-  const response = await requestCompletions(messageHistory);
-  console.log(response);
-  return response;
+  const completion = await requestCompletions(messageHistory);
+  console.log(completion);
+  const image = await requestImage(completion.description);
+  return {
+    entry: completion,
+    image
+  };
 }

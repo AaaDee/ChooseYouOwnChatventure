@@ -8,7 +8,7 @@ import OpenAI from 'openai';
 
 export const requestCompletions = async (
   messages: Array<ChatCompletionMessageParam>
-): Promise<TextEntry | null> => {
+): Promise<TextEntry> => {
   const openai = getOpenAIClient();
 
   const completions = await getCompletions(openai, messages);
@@ -38,7 +38,7 @@ export const requestCompletions = async (
       console.log(error, retryCompletionsContent);
     }
   }
-  return null;
+  throw new Error('unable to return a text completion');
 };
 
 async function getCompletions(

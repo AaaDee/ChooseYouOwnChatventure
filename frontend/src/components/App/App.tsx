@@ -9,6 +9,7 @@ import { Spinner } from '../Spinner/Spinner';
 import { LoginForm } from '../LoginForm/LoginForm';
 import { selectUser } from '../../features/user/selectors';
 import { selectAudioMuted } from '../../features/settings/selectors';
+import { Illustration } from '../Illustration/Illustration';
 
 export const App = () => {
   const isLoading = useSelector(selectStatusIsLoading);
@@ -17,6 +18,7 @@ export const App = () => {
   return (
     <StyledApp>
       <Title />
+      <Illustration />
       {username && <TextBox />}
       {!username && <LoginForm />}
       {isLoading && <Spinner />}
