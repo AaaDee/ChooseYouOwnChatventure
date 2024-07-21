@@ -6,6 +6,8 @@ services:
     build:
       context: ./frontend
     container_name: front
+    volumes:
+      - ./frontend/.env:/usr/src/app/.env
   back:
     image: aaadee/chatventure-back
     build:
