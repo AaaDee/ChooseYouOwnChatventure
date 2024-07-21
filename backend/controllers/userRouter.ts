@@ -27,6 +27,7 @@ export const userRouter = express.Router();
 userRouter.post('/login', (request, response) => {
   void (async function (): Promise<void> {
     const { username, password } = UserInput.parse(request.body);
+    console.log('logging in with', username);
 
     const user = await User.findOne({ username });
 
