@@ -2,6 +2,8 @@ FROM node:20
 
 WORKDIR /usr/src/app
 
+ENV REACT_APP_BACKEND_URL=/api
+
 COPY --chown=node:node . .
 
 RUN npm ci

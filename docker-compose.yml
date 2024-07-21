@@ -10,6 +10,9 @@ services:
     image: aaadee/chatventure-back
     build:
       context: ./backend
+    volumes:
+      - ./backend/.env:/usr/src/app/.env
+    container_name: back
   nginx:
     container_name: nginx
     restart: unless-stopped
@@ -31,7 +34,7 @@ services:
   watchtower:
     image: containrrr/watchtower
     environment:
-      -  WATCHTOWER_POLL_INTERVAL=600
+      -  WATCHTOWER_POLL_INTERVAL=60
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     container_name: watchtower

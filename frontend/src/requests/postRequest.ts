@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// todo set backend url in config
-const backendUrl = 'http://localhost:3001';
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 export async function postRequest(endpoint: string, data: object) {
   const response = await axios.post(`${backendUrl}/${endpoint}`, data);
