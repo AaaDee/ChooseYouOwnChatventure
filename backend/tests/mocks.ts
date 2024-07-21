@@ -31,5 +31,6 @@ export const mockEntry: TextEntry = {
   choices: [
     { index: 1, content: 'do something' },
     { index: 2, content: 'do something else' }
-  ]
+  ],
+  description: 'an image describing a test'
 };
