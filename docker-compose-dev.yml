@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  front:
+    image: chatventure-front-dev
+    build:
+      context: ./frontend
+      args:
+        - REACT_APP_BACKEND_URL=/api
+    container_name: front
+    ports:
+      - 3000:3000
+  back:
+    image: chatventure-back-dev
+    build:
+      context: ./backend
+    volumes:
+      - ./backend/.env:/usr/src/app/.env
+    container_name: back
+  nginx:
+    container_name: nginx
+    restart: unless-stopped
+    image: nginx
+    ports:
+        - 80:80
+    volumes:
+        - ./nginx/nginx-dev.conf:/etc/nginx/nginx.conf
+
+  
