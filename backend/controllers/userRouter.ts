@@ -27,6 +27,7 @@ export const userRouter = express.Router();
 userRouter.post('/login', (request, response) => {
   void (async function (): Promise<void> {
     const { username, password } = UserInput.parse(request.body);
+    console.log('logging in with', username);
 
     const user = await User.findOne({ username });
 
@@ -47,6 +48,7 @@ userRouter.post('/login', (request, response) => {
 
     const token = jwt.sign(userForToken, process.env.SECRET || ''); // todo add check for process.env
 
+    console.log('sending token for', username);
     response.status(200).send({ token, username: user.username });
   })();
 });
