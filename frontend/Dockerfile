@@ -2,9 +2,7 @@ FROM node:20
 
 WORKDIR /usr/src/app
 
-# Set env variable
-ARG REACT_APP_BACKEND_URL
-ENV REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL
+ENV REACT_APP_BACKEND_URL=/api
 
 COPY --chown=node:node . .
 
