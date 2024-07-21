@@ -12,6 +12,7 @@ services:
       context: ./backend
     volumes:
       - ./backend/.env:/usr/src/app/.env
+    container_name: back
   nginx:
     container_name: nginx
     restart: unless-stopped
