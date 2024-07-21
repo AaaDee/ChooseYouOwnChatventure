@@ -1,6 +1,6 @@
 import { parseCompletionResponse } from './parseCompletionResponse';
 
-const mockResponse = `{"content": "test", "choices": ["one", "two", "three"]}`;
+const mockResponse = `{"content": "test", "choices": ["one", "two", "three"], "description": "testing"}`;
 
 describe('completions parser', () => {
   test('parses content as text', () => {

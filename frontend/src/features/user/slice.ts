@@ -26,6 +26,9 @@ export const fetchUser = createAsyncThunk(
     if (response.status == 401) {
       throw new Error('unauthorised');
     }
+    // todo fix
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    window.localStorage.setItem('token', response.data.token);
 
     return response.data as User;
   }

@@ -9,7 +9,6 @@ export function useLogin() {
   const [password, setPassword] = useState('');
   const [isRequested, setIsRequested] = useState(false);
   const hasFailed = useSelector(selectHasFailed);
-  console.log(hasFailed);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

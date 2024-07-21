@@ -1,8 +1,8 @@
 import express from 'express';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { User } from '../models/user';
+import { User, UserSchema } from '../models/user';
 import { UserInput } from '../types';
+import { isPasswordCorrect } from '../features/isPasswordCorrect';
+import { signUserToken } from '../features/signUserToken';
 
 export const userRouter = express.Router();
 
@@ -31,24 +31,27 @@ userRouter.post('/login', (request, response) => {
 
     const user = await User.findOne({ username });
 
-    const passwordCorrect =
-      user === null ? false : await bcrypt.compare(password, user.passwordHash);
+    const passwordCorrect = user
+      ? await isPasswordCorrect(user, password)
+      : false;
 
-    if (!(user && passwordCorrect)) {
+    if (!passwordCorrect) {
       response.status(401).json({
         error: 'invalid username or password'
       });
       return;
     }
 
+    const verified_user = user as UserSchema;
+
     const userForToken = {
-      username: user.username,
-      id: user._id
+      username: verified_user.username,
+      id: verified_user._id
     };
 
-    const token = jwt.sign(userForToken, process.env.SECRET || ''); // todo add check for process.env
+    const token = signUserToken(userForToken);
 
     console.log('sending token for', username);
-    response.status(200).send({ token, username: user.username });
+    response.status(200).send({ token, username: verified_user.username });
   })();
 });
