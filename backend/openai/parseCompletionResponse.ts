@@ -19,7 +19,7 @@ export function parseCompletionResponse(response: string | null): TextEntry {
 
   let jsonResponse;
   try {
-    jsonResponse = JSON.parse(response) as object;
+    jsonResponse = JSON.parse(stringResponse) as object;
     console.log(jsonResponse);
   } catch (error) {
     console.log(error);
