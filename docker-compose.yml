@@ -5,8 +5,6 @@ services:
     image: aaadee/chatventure-front
     build:
       context: ./frontend
-      args:
-        - REACT_APP_BACKEND_URL=/api
     container_name: front
   back:
     image: aaadee/chatventure-back
