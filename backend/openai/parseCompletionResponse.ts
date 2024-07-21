@@ -9,10 +9,20 @@ export function parseCompletionResponse(response: string | null): TextEntry {
   }
   console.log('response:', response);
 
+  let stringResponse = response;
+
+  if (stringResponse.startsWith('```json')) {
+    console.log('removing json from prompt response');
+    stringResponse = stringResponse.replace('```json', '');
+    stringResponse = stringResponse.replace('```', '');
+  }
+
   let jsonResponse;
   try {
     jsonResponse = JSON.parse(response) as object;
-  } catch {
+    console.log(jsonResponse);
+  } catch (error) {
+    console.log(error);
     throw new Error('Response is not a valid json');
   }
 
