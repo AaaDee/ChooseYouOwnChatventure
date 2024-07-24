@@ -4,10 +4,15 @@ import { promptImage } from './prompts';
 
 export const requestImage = async (description: string): Promise<string> => {
   const openai = getOpenAIClient();
-  const imageResponse = await getImageResponse(openai, description);
+  let imageResponse = null;
+  try {
+    imageResponse = await getImageResponse(openai, description);
+  } catch (error) {
+    throw new Error('unable to get image');
+  }
 
   if (!imageResponse) {
-    throw new Error('no image returned');
+    throw new Error('unable to get image');
   }
 
   return imageResponse;
