@@ -12,11 +12,8 @@ export const selectStatusIsLoading = (state: RootState) => {
   );
 };
 
-export const selectStatusIsFailed = (state: RootState) => {
-  return (
-    state.entry.status === StateStatus.FAILED ||
-    state.user.status == StateStatus.FAILED
-  );
+export const selectEntryFailed = (state: RootState) => {
+  return state.entry.status === StateStatus.FAILED;
 };
 
 export const selectStatusIsRequested = (state: RootState) =>
