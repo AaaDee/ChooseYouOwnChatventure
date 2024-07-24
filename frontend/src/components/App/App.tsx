@@ -5,7 +5,7 @@ import { StyledApp } from './style';
 import { TextBox } from '../TextBox/TextBox';
 import { useSelector } from 'react-redux';
 import {
-  selectStatusIsFailed,
+  selectEntryFailed,
   selectStatusIsLoading
 } from '../../features/entry/selectors';
 import { Spinner } from '../Spinner/Spinner';
@@ -17,7 +17,7 @@ import { ErrorBox } from '../ErrorBox.tsx/ErrorBox';
 
 export const App = () => {
   const isLoading = useSelector(selectStatusIsLoading);
-  const isFailed = useSelector(selectStatusIsFailed);
+  const isFailed = useSelector(selectEntryFailed);
   const username = useSelector(selectUser);
   const isMuted = useSelector(selectAudioMuted);
 
