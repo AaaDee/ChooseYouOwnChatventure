@@ -17,8 +17,13 @@ promptRouter.post('/start', (request, response) => {
       response.status(401).json({ error: 'token invalid' });
       return;
     }
-    const prompt = await requestStartPrompt();
-    response.send(prompt);
+
+    try {
+      const prompt = await requestStartPrompt();
+      response.send(prompt);
+    } catch (error) {
+      response.status(500).send(error);
+    }
   })();
 });
 
@@ -35,33 +40,19 @@ promptRouter.post('/ongoing', (request, response) => {
     }
 
     const chatHistory = ChatHistory.parse(request.body);
-    const prompt = await requestOngoingPrompt(chatHistory);
-    response.send(prompt);
+
+    try {
+      const prompt = await requestOngoingPrompt(chatHistory);
+      response.send(prompt);
+    } catch (error) {
+      response.status(500).send(error);
+    }
   })();
 });
 
 promptRouter.post('/dummy', (_request, response) => {
   response.send(mockEntry);
 });
-
-// For debug purposes
-// promptRouter.get('/image', (_request, response) => {
-//   void (async function (): Promise<void> {
-//     const openai = getOpenAIClient();
-//     const prompt = 'an illustration from a 70s/80s sword and sorcery novel';
-
-//     const imageResponse = await openai.images.generate({
-//       prompt,
-//       n: 1,
-//       quality: 'standard',
-//       model: 'dall-e-3',
-//       size: '1024x1024',
-//       response_format: 'url'
-//     });
-
-//     response.send(imageResponse);
-//   })();
-// });
 
 function getTokenFrom(request: Request): string {
   const authorization = request.get('authorization');

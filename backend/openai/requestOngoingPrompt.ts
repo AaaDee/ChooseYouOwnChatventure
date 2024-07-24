@@ -33,9 +33,21 @@ export async function requestOngoingPrompt(history: ChatHistory) {
   });
 
   console.log(messageHistory);
-  const completion = await requestCompletions(messageHistory);
-  console.log(completion);
-  const image = await requestImage(completion.description);
+
+  let completion = null;
+  try {
+    completion = await requestCompletions(messageHistory);
+  } catch {
+    throw new Error('unable to create completion');
+  }
+
+  let image = null;
+  try {
+    image = await requestImage(completion.description);
+  } catch {
+    throw new Error('unable to create image');
+  }
+
   return {
     entry: completion,
     image

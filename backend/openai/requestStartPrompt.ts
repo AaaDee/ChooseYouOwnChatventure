@@ -4,11 +4,24 @@ import { requestImage } from './requestImage.ts';
 import { OpenAIRoles } from './types';
 
 export async function requestStartPrompt() {
-  const messages = [
+  const startPromptMessages = [
     { role: OpenAIRoles.USER, content: PROMPT_INITIAL_CHOICES }
   ];
-  const completion = await requestCompletions(messages);
-  const image = await requestImage(completion.description);
+
+  let completion = null;
+  try {
+    completion = await requestCompletions(startPromptMessages);
+  } catch {
+    throw new Error('unable to create completion');
+  }
+
+  let image = null;
+  try {
+    image = await requestImage(completion.description);
+  } catch {
+    throw new Error('unable to create image');
+  }
+
   return {
     entry: completion,
     image

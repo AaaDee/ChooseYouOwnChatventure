@@ -50,6 +50,9 @@ export const entrySlice = createSlice({
     builder.addCase(fetchEntry.pending, (state, _action) => {
       state.status = StateStatus.LOADING;
     });
+    builder.addCase(fetchEntry.rejected, (state, _action) => {
+      state.status = StateStatus.FAILED;
+    });
   }
 });
 
