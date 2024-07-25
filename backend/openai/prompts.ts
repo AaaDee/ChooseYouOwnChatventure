@@ -10,7 +10,7 @@ Structure the response into JSON as follows:
 where content contains the text excerpt, excluding the player's choices. Choices is an array of exactly three choices that the player can make. Description contains a description of the scene for image generation purposes
 `;
 
-export const PROMPT_INITIAL_CHOICES = `Create an excerpt of a Fighting Fantasy novel.
+export const PROMPT_INITIAL_CHOICES = `Create an excerpt of a sword and sorcery gamebook, where the reader is the protagonist and may choose the outcome of the story.
 
 ${PROMPT_FORMAT}
 `;
