@@ -6,5 +6,5 @@ export function Illustration() {
   const imageData = useSelector(selectImage);
   const imageSrc = `data::image/jpg;base64, ${imageData}`;
 
-  return <StyledImage src={imageSrc} width={384} height={384} />;
+  return <StyledImage src={imageSrc} width={512} height={512} />;
 }
