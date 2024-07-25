@@ -1,7 +1,7 @@
 import React from 'react';
 import { AudioPlayer } from '../AudioPlayer/AudioPlayer';
 import { Title } from '../Title/Title';
-import { StyledApp } from './style';
+import { StyledApp, StyledBody } from './style';
 import { TextBox } from '../TextBox/TextBox';
 import { useSelector } from 'react-redux';
 import {
@@ -14,6 +14,7 @@ import { selectUser } from '../../features/user/selectors';
 import { selectAudioMuted } from '../../features/settings/selectors';
 import { Illustration } from '../Illustration/Illustration';
 import { ErrorBox } from '../ErrorBox.tsx/ErrorBox';
+import { Header } from '../Header/Header';
 
 export const App = () => {
   const isLoading = useSelector(selectStatusIsLoading);
@@ -23,13 +24,16 @@ export const App = () => {
 
   return (
     <StyledApp>
-      <Title />
-      <Illustration />
-      {isFailed && <ErrorBox />}
-      {username && <TextBox />}
-      {!username && <LoginForm />}
-      {isLoading && <Spinner />}
-      {!isMuted && <AudioPlayer />}
+      <Header />
+      <StyledBody>
+        <Title />
+        <Illustration />
+        {isFailed && <ErrorBox />}
+        {username && <TextBox />}
+        {!username && <LoginForm />}
+        {isLoading && <Spinner />}
+        {!isMuted && <AudioPlayer />}
+      </StyledBody>
     </StyledApp>
   );
 };
