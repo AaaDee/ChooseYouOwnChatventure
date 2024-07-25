@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { TextEntry } from '../types';
+import { ChatHistory, PromptResponse, TextEntry } from '../types';
 
 export const mockOpenAiCompletionResponse: OpenAI.Chat.Completions.ChatCompletion =
   {
@@ -33,4 +33,14 @@ export const mockEntry: TextEntry = {
     { index: 2, content: 'do something else' }
   ],
   description: 'an image describing a test'
+};
+
+export const mockPrompt: PromptResponse = {
+  entry: mockEntry,
+  image: 'test'
+};
+
+export const mockEmptyChatHistory: ChatHistory = {
+  entries: [],
+  choices: []
 };
