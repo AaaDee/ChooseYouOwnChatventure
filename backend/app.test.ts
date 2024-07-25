@@ -1,20 +1,19 @@
 import { describe, test } from '@jest/globals';
-import supertest from 'supertest';
-import app from './app';
 import { requestDummyPrompt } from './openai/requestDummyPrompt';
+import { mockApp } from './tests/mockApp';
 
 jest.mock('./openai/requestDummyPrompt');
 
-const api = supertest(app);
+const app = mockApp();
 
 describe('app works at basic level;', () => {
   test('ping is returned', async () => {
-    await api.get('/ping').expect(200).expect('ping!');
+    await app.get('/ping').expect(200).expect('ping!');
   });
 
   test('post returns json content', async () => {
     const mockedRequest = jest.mocked(requestDummyPrompt);
     mockedRequest.mockResolvedValue('test');
-    await api.post('/').expect('Content-Type', /application\/json/);
+    await app.post('/').expect('Content-Type', /application\/json/);
   });
 });
