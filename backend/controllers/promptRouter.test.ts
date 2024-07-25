@@ -1,4 +1,4 @@
-jest.mock('../features/isTokenValid');
+jest.mock('../features/doesRequestHaveValidToken');
 import { doesRequestHaveValidToken } from '../features/doesRequestHaveValidToken';
 
 jest.mock('../openai/requestStartPrompt');
