@@ -3,13 +3,13 @@ import { requestStartPrompt } from '../openai/requestStartPrompt';
 import { ChatHistory } from '../types';
 import { mockEntry } from '../tests/mocks';
 import { requestOngoingPrompt } from '../openai/requestOngoingPrompt';
-import { isTokenValid } from '../features/isTokenValid';
+import { doesRequestHaveValidToken } from '../features/doesRequestHaveValidToken';
 
 export const promptRouter = express.Router();
 
 promptRouter.post('/start', (request, response) => {
   void (async function (): Promise<void> {
-    if (!isTokenValid(request)) {
+    if (!doesRequestHaveValidToken(request)) {
       response.status(401).json({ error: 'token invalid' });
       return;
     }
@@ -25,7 +25,7 @@ promptRouter.post('/start', (request, response) => {
 
 promptRouter.post('/ongoing', (request, response) => {
   void (async function (): Promise<void> {
-    if (!isTokenValid(request)) {
+    if (!doesRequestHaveValidToken(request)) {
       response.status(401).json({ error: 'token invalid' });
       return;
     }

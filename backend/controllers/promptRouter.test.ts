@@ -1,5 +1,5 @@
 jest.mock('../features/isTokenValid');
-import { isTokenValid } from '../features/isTokenValid';
+import { doesRequestHaveValidToken } from '../features/doesRequestHaveValidToken';
 
 jest.mock('../openai/requestStartPrompt');
 import { requestStartPrompt } from '../openai/requestStartPrompt';
@@ -13,7 +13,7 @@ const app = mockApp();
 
 describe('Prompt Router', () => {
   beforeEach(() => {
-    jest.mocked(isTokenValid).mockReturnValue(true);
+    jest.mocked(doesRequestHaveValidToken).mockReturnValue(true);
   });
 
   test('Dummy prompt is sent correctly', async () => {
@@ -29,7 +29,7 @@ describe('Prompt Router', () => {
   });
 
   test('Start prompt returns 401 on invalid token ', async () => {
-    jest.mocked(isTokenValid).mockReturnValue(false);
+    jest.mocked(doesRequestHaveValidToken).mockReturnValue(false);
     const response = await app.post('/prompt/start');
     expect(response.status).toEqual(401);
   });
@@ -51,7 +51,7 @@ describe('Prompt Router', () => {
   });
 
   test('Ongoing prompt returns 401 on invalid token ', async () => {
-    jest.mocked(isTokenValid).mockReturnValue(false);
+    jest.mocked(doesRequestHaveValidToken).mockReturnValue(false);
     const response = await app.post('/prompt/ongoing');
     expect(response.status).toEqual(401);
   });
