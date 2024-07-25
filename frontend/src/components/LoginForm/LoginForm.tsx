@@ -1,4 +1,5 @@
 import { useLogin } from '../../hooks/useLogin';
+import { Button } from '../Button/Button';
 
 export function LoginForm() {
   const { username, password, setUsername, setPassword, submit, hasFailed } =
@@ -29,7 +30,7 @@ export function LoginForm() {
           onChange={({ target }) => setPassword(target.value)}
         />
       </div>
-      <button type="submit">Login</button>
+      <Button content="Login" />
       {hasFailed && <div>Login failed</div>}
     </form>
   );

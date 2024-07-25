@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectChoices, selectContent } from '../../features/entry/selectors';
-import { ChoiceButton } from '../ChoiceButton/ChoiceButton';
+import { Button } from '../Button/Button';
 import { useOngoingRequest } from '../../hooks/useOngoingRequest';
 
 export function OngoingView() {
@@ -17,7 +17,7 @@ export function OngoingView() {
     <>
       <div data-testid="ongoing_text">{content}</div>
       {choices.map((choice) => (
-        <ChoiceButton
+        <Button
           key={choice.index}
           content={choice.content}
           onClick={requestOngoing(choice.index)}
