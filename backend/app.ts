@@ -3,6 +3,9 @@ import express from 'express';
 import { requestDummyPrompt } from './openai/requestDummyPrompt';
 import { userRouter } from './controllers/userRouter';
 import { promptRouter } from './controllers/promptRouter';
+import { setupMongoose } from './features/setupMongoose';
+
+setupMongoose();
 
 const app = express();
 

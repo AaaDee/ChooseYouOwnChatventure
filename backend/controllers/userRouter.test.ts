@@ -1,7 +1,4 @@
-import supertest from 'supertest';
-
-import app from '../app';
-const api = supertest(app);
+import { mockApp } from '../tests/mockApp';
 
 jest.mock('../models/user');
 import { User } from '../models/user';
@@ -11,6 +8,8 @@ import { isPasswordCorrect } from '../features/isPasswordCorrect';
 
 jest.mock('../features/signUserToken');
 import { signUserToken } from '../features/signUserToken';
+
+const app = mockApp();
 
 jest
   .spyOn(User, 'findOne')
@@ -23,7 +22,7 @@ describe('Login', () => {
     jest.mocked(isPasswordCorrect).mockResolvedValue(true);
     jest.mocked(signUserToken).mockReturnValue('test');
 
-    await api
+    await app
       .post('/user/login')
       .send({ username: 'test', password: 'test' })
       .expect(200);
@@ -32,7 +31,7 @@ describe('Login', () => {
   test('Successful login returns 401', async () => {
     jest.mocked(isPasswordCorrect).mockResolvedValue(false);
 
-    await api
+    await app
       .post('/user/login')
       .send({ username: 'test', password: 'test' })
       .expect(401);
