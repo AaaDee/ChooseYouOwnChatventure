@@ -3,7 +3,7 @@ import type { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit';
 import { PromptResponse, TextEntry } from '../../types';
 import { postRequest } from '../../requests/postRequest';
 import { StateStatus } from '../enums';
-import imageData from '../../test/testImage.json';
+import imageData from '../../images/startImage.json';
 
 export interface EntryState {
   entry?: TextEntry;
