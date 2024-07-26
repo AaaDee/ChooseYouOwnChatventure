@@ -8,4 +8,5 @@ export const StyledHeader = styled.nav`
   padding-top: 12px;
   padding-bottom: 12px;
   padding-right: 12px;
+  gap: 10px;
 `;
