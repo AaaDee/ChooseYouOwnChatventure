@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { globalStyles } from '../../style/globalStyles';
+import { globalStyles, TextStyle } from '../../style/globalStyles';
 
 export const ButtonStyle = css`
   background-color: ${globalStyles.colors.button};
@@ -12,8 +12,7 @@ export const ButtonStyle = css`
 `;
 
 export const ButtonTextStyle = css`
-  font-family: 'Papyrus', Times, serif;
-  font-style: italic;
+  ${TextStyle}
   font-weight: bold;
 
   &:hover {

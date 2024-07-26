@@ -1,3 +1,5 @@
+import { css } from 'styled-components';
+
 export const globalStyles = {
   colors: {
     background: '#486e32',
@@ -6,3 +8,8 @@ export const globalStyles = {
     shadow: 'darkgreen'
   }
 };
+
+export const TextStyle = css`
+  font-family: serif;
+  font-style: italic;
+`;
