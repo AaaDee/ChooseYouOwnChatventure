@@ -11,4 +11,5 @@ export const StyledTextBox = styled.div`
   padding: 10px;
   min-height: 100px;
   gap: 10px;
+  width: 100%;
 `;

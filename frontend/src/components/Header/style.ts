@@ -9,4 +9,7 @@ export const StyledHeader = styled.nav`
   padding-bottom: 12px;
   padding-right: 12px;
   gap: 10px;
+
+  box-sizing: border-box;
+  width: 100%;
 `;
