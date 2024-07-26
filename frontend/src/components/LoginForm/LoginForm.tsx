@@ -1,6 +1,6 @@
 import { useLogin } from '../../hooks/useLogin';
 import { Button } from '../Button/Button';
-import { StyledLogin } from './style';
+import { StyledInput, StyledLogin } from './style';
 
 export function LoginForm() {
   const { username, password, setUsername, setPassword, submit, hasFailed } =
@@ -14,7 +14,7 @@ export function LoginForm() {
   return (
     <StyledLogin onSubmit={handleLogin}>
       <label htmlFor="username">Username</label>
-      <input
+      <StyledInput
         id="username"
         type="text"
         value={username}
@@ -23,7 +23,7 @@ export function LoginForm() {
       />
 
       <label htmlFor="password">Password</label>
-      <input
+      <StyledInput
         id="password"
         type="password"
         value={password}
