@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { globalStyles } from '../../style/globalStyles';
 
 export const StyledBody = styled.div`
   display: flex;
@@ -11,5 +12,5 @@ export const StyledBody = styled.div`
 export const StyledApp = styled.div`
   display: flex;
   flex-flow: column;
-  background-color: #486e32;
+  background-color: ${globalStyles.colors.background};
 `;

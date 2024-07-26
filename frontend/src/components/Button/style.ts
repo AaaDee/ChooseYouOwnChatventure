@@ -1,12 +1,13 @@
 import styled, { css } from 'styled-components';
+import { globalStyles } from '../../style/globalStyles';
 
 export const ButtonStyle = css`
-  background-color: #ededca;
+  background-color: ${globalStyles.colors.button};
   width: fit-content;
 
   &:hover {
     background-color: black;
-    box-shadow: 4px 4px darkgreen;
+    box-shadow: 4px 4px ${globalStyles.colors.shadow};
   }
 `;
 
@@ -16,7 +17,7 @@ export const ButtonTextStyle = css`
   font-weight: bold;
 
   &:hover {
-    color: #ededca;
+    color: ${globalStyles.colors.button};
   }
 `;
 
