@@ -1,17 +1,20 @@
 import mongoose from 'mongoose';
 
-export function setupMongoose() {
+export async function setupMongoose() {
   mongoose.set('strictQuery', false);
 
   const url = process.env.MONGODB_URI;
 
+  if (!url) {
+    throw new Error('Mongodb url missing');
+  }
+
   console.log('connecting to', url);
-  mongoose
-    .connect(url || '') // todo validate and change to async
-    .then((_result) => {
-      console.log('connected to MongoDB');
-    })
-    .catch((error) => {
-      console.log('error connecting to MongoDB:', error.message);
-    });
+
+  try {
+    await mongoose.connect(url);
+    console.log('connected to MongoDB');
+  } catch (error) {
+    console.log('error connecting to MongoDB:', error);
+  }
 }
