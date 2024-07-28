@@ -11,7 +11,7 @@ export function Header() {
 
   return (
     <StyledHeader>
-      {!hasUser && <LogoutButton />}
+      {hasUser && <LogoutButton />}
       <MusicButton />
     </StyledHeader>
   );
