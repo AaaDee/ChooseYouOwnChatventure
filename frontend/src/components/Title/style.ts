@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { globalStyles, TextStyle } from '../../style/globalStyles';
 
 export const StyledWrapper = styled.div`
   display: flex;
@@ -6,9 +7,13 @@ export const StyledWrapper = styled.div`
   border: solid;
   height: fit-content;
   border-color: black;
-  box-shadow: 10px 5px 5px darkgreen;
+  box-shadow: 10px 5px 5px ${globalStyles.colors.shadow};
+  width: 100%;
+  min-width: 440px;
 `;
 
 export const TitleText = styled.h1`
-  font-style: italic;
+  ${TextStyle}
+  padding-left: 12px;
+  padding-right: 12px;
 `;

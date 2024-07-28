@@ -40,6 +40,9 @@ export const userSlice = createSlice({
   reducers: {
     setUser(state, action: PayloadAction<string>) {
       state.username = action.payload;
+    },
+    removeUser(state) {
+      state.username = undefined;
     }
   },
   extraReducers: (builder: ActionReducerMapBuilder<UserState>) => {
@@ -56,6 +59,6 @@ export const userSlice = createSlice({
   }
 });
 
-export const { setUser } = userSlice.actions;
+export const { removeUser, setUser } = userSlice.actions;
 
 export default userSlice.reducer;

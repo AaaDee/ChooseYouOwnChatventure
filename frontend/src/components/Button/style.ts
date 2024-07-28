@@ -1,15 +1,26 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { globalStyles, TextStyle } from '../../style/globalStyles';
 
-export const StyledButton = styled.button`
-  font-family: 'Papyrus', Times, serif;
-  background-color: #ededca;
+export const ButtonStyle = css`
+  background-color: ${globalStyles.colors.button};
   width: fit-content;
-  font-style: italic;
+
+  &:hover {
+    background-color: black;
+    box-shadow: 4px 4px ${globalStyles.colors.shadow};
+  }
+`;
+
+export const ButtonTextStyle = css`
+  ${TextStyle}
   font-weight: bold;
 
   &:hover {
-    color: #ededca;
-    background-color: black;
-    box-shadow: 4px 4px darkgreen;
+    color: ${globalStyles.colors.button};
   }
+`;
+
+export const StyledButton = styled.button`
+  ${ButtonStyle}
+  ${ButtonTextStyle}
 `;

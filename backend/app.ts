@@ -5,7 +5,13 @@ import { userRouter } from './controllers/userRouter';
 import { promptRouter } from './controllers/promptRouter';
 import { setupMongoose } from './features/setupMongoose';
 
-setupMongoose();
+void (async () => {
+  try {
+    await setupMongoose();
+  } catch (e) {
+    console.log('Mongoose setup failed', e);
+  }
+})();
 
 const app = express();
 
