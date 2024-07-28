@@ -11,16 +11,21 @@ import {
 import { Spinner } from '../Spinner/Spinner';
 import { LoginForm } from '../LoginForm/LoginForm';
 import { selectUser } from '../../features/user/selectors';
-import { selectAudioMuted } from '../../features/settings/selectors';
+import {
+  selectAudioMuted,
+  selectInfoOpen
+} from '../../features/settings/selectors';
 import { Illustration } from '../Illustration/Illustration';
 import { ErrorBox } from '../ErrorBox.tsx/ErrorBox';
 import { Header } from '../Header/Header';
+import { InfoPage } from '../InfoPage/InfoPage';
 
 export const App = () => {
   const isLoading = useSelector(selectStatusIsLoading);
   const isFailed = useSelector(selectEntryFailed);
   const username = useSelector(selectUser);
   const isMuted = useSelector(selectAudioMuted);
+  const isInfoOpen = useSelector(selectInfoOpen);
 
   return (
     <StyledApp>
@@ -28,6 +33,7 @@ export const App = () => {
       <StyledBody>
         <Title />
         <Illustration />
+        {isInfoOpen && <InfoPage />}
         {isFailed && <ErrorBox />}
         {username && <TextBox />}
         {!username && <LoginForm />}
