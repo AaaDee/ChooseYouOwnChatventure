@@ -1,46 +1,28 @@
-# Getting Started with Create React App
+# Choose Your Own Chatventure
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A website for AI-generated sword and sorcery adventures.
 
-## Available Scripts
+Currently hosted at [chooseyourownchatventure.net](https://chooseyourownchatventure.net)
 
-In the project directory, you can run:
+## Project structure and overview
 
-### `npm start`
+The project repo contains the code for both frontend and backend. The backend uses Node and Express, and the frontend uses React. Both are written in Typescript and tested using Jest.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+There is a CI/CD pipeline using GitHub Actions [here](./.gihub/workflows). The project is first tested for functionality and linting, and then pushed to an image on DockerHub. The images are watched in the production server and pulled on updates.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The production server is a self-configured cloud server.
 
-### `npm test`
+## Running the project locally
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To run the project locally, you will need an [OpenAI api key](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key) and a [MongoDB url for a working instance](https://www.mongodb.com/docs/manual/reference/connection-string/).
 
-### `npm run build`
+For configuration, copy the .env-template files in the backend and frontend folders into .env files, and update the content. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+After this, the easiest way to run the project locally is using Docker Compose. This command pulls the respective images from Dockerhub:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+docker compose -f docker-compose-dev.yml up
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Alternatively, you can start both frontend and backend by installing the dependencies with `npm install` and then running `npm start` in the respective folders.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
