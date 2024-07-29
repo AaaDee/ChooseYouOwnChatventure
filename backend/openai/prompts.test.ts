@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { promptFurtherChoices } from './prompts';
 
 describe('Choice number is passed to prompt', () => {

@@ -2,10 +2,11 @@
   "name": "chatventure-backend",
   "version": "0.1.0",
   "main": "index.ts",
+  "type": "module",
   "scripts": {
     "start": "NODE_ENV=production npx tsx index.ts",
     "dev": "NODE_ENV=development npx tsx watch index.ts",
-    "test": "NODE_ENV=test npx jest",
+    "test": "NODE_ENV=test vitest",
     "coverage": "NODE_ENV=test npx jest --coverage",
     "tsc": "tsc",
     "lint": "eslint --ext .ts ."
@@ -44,6 +45,7 @@
     "supertest": "^7.0.0",
     "ts-jest": "^29.1.5",
     "tsx": "^4.15.6",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^2.0.4"
   }
 }
