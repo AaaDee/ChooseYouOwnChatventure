@@ -11,6 +11,7 @@ import {
 } from '../features/entry/selectors';
 import { addEntry, addSelectedChoice } from '../features/history/slice';
 import { useAppDispatch } from './useAppDispatch';
+import { Endpoints } from '../requests/endoints';
 
 export function useOngoingRequest() {
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
@@ -40,7 +41,7 @@ export function useOngoingRequest() {
       };
 
       const requestData = {
-        endpoint: 'prompt/ongoing',
+        endpoint: Endpoints.ONGOING,
         data
       };
 

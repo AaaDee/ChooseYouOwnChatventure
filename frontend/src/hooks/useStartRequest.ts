@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchEntry } from '../features/entry/slice';
 import { useAppDispatch } from './useAppDispatch';
+import { Endpoints } from '../requests/endoints';
 
 export function useStartRequest() {
   const [isRequested, setIsRequested] = useState(false);
@@ -12,7 +13,7 @@ export function useStartRequest() {
     }
     async function requestData() {
       const requestData = {
-        endpoint: 'prompt/start',
+        endpoint: Endpoints.START,
         data: {}
       };
       await dispatch(fetchEntry(requestData));
