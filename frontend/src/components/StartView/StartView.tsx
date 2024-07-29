@@ -7,11 +7,9 @@ export function StartView() {
   const onClick = useStartRequest();
   return (
     <Wrapper>
-      <Button
-        onClick={onClick}
-        data-testid="start_button"
-        content={'Start your journey'}
-      />
+      <Button onClick={onClick} data-testid="start_button">
+        Start your journey
+      </Button>
     </Wrapper>
   );
 }

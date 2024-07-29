@@ -31,7 +31,7 @@ export function LoginForm() {
         onChange={({ target }) => setPassword(target.value)}
       />
 
-      <Button content="Login" />
+      <Button>Login</Button>
       {hasFailed && <div>Login failed</div>}
     </StyledLogin>
   );

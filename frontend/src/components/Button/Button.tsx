@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { StyledButton } from './style';
 
 interface Props {
-  content: string;
+  children: ReactNode;
   onClick?: () => void;
 }
 
-export const Button = ({ content, onClick }: Props) => {
-  return <StyledButton onClick={onClick}>{content}</StyledButton>;
+export const Button = ({ children, onClick }: Props) => {
+  return <StyledButton onClick={onClick}>{children}</StyledButton>;
 };

@@ -10,5 +10,5 @@ export function InfoButton() {
     dispatch(setInfoOpen(true));
   }
 
-  return <Button content={'Info'} onClick={onClick} />;
+  return <Button onClick={onClick}>Info</Button>;
 }
