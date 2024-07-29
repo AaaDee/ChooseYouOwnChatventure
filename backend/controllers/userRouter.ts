@@ -29,7 +29,16 @@ userRouter.post('/login', (request, response) => {
     const { username, password } = UserInput.parse(request.body);
     console.log('logging in with', username);
 
-    const user = await User.findOne({ username });
+    let user = null;
+    try {
+      user = await User.findOne({ username });
+    } catch (error) {
+      console.log('MongoDB error', error);
+      response.status(500).json({
+        error: 'unable to access database'
+      });
+      return;
+    }
 
     const passwordCorrect = user
       ? await isPasswordCorrect(user, password)
