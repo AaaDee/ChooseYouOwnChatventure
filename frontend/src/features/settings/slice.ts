@@ -3,10 +3,12 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface SettingsState {
   audioMuted: boolean;
+  infoOpen: boolean;
 }
 
 const initialState: SettingsState = {
-  audioMuted: true
+  audioMuted: true,
+  infoOpen: false
 };
 
 export const settingsSlice = createSlice({
@@ -15,11 +17,13 @@ export const settingsSlice = createSlice({
   reducers: {
     setAudioMuted(state, action: PayloadAction<boolean>) {
       state.audioMuted = action.payload;
+    },
+    setInfoOpen(state, action: PayloadAction<boolean>) {
+      state.infoOpen = action.payload;
     }
   }
 });
 
-// Action creators are generated for each case reducer function
-export const { setAudioMuted } = settingsSlice.actions;
+export const { setAudioMuted, setInfoOpen } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

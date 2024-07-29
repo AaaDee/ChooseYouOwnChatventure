@@ -4,6 +4,7 @@ import { MusicButton } from '../MusicButton/MusicButton';
 import { selectUser } from '../../features/user/selectors';
 import { useSelector } from 'react-redux';
 import { LogoutButton } from '../LogoutButton/LogoutButton';
+import { InfoButton } from '../InfoButton/InfoButton';
 
 export function Header() {
   const user = useSelector(selectUser);
@@ -11,7 +12,8 @@ export function Header() {
 
   return (
     <StyledHeader>
-      {!hasUser && <LogoutButton />}
+      {hasUser && <LogoutButton />}
+      <InfoButton />
       <MusicButton />
     </StyledHeader>
   );
