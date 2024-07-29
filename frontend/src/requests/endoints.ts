@@ -1,5 +1,5 @@
 export enum Endpoints {
   LOGIN = 'user/login',
-  START = 'prompts/start',
-  ONGOING = 'prompts/ongoing'
+  START = 'prompt/start',
+  ONGOING = 'prompt/ongoing'
 }
