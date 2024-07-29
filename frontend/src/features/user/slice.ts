@@ -3,6 +3,7 @@ import type { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit';
 import { StateStatus } from '../enums';
 import { postRequest } from '../../requests/postRequest';
 import { User, UserInput } from '../../types';
+import { Endpoints } from '../../requests/endoints';
 
 export interface UserState {
   username?: string;
@@ -14,7 +15,7 @@ const initialState: UserState = {
 };
 
 interface UserRequestData {
-  endpoint: string;
+  endpoint: Endpoints;
   data: UserInput;
 }
 

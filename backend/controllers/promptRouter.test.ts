@@ -1,10 +1,12 @@
-jest.mock('../features/doesRequestHaveValidToken');
+import { beforeEach, describe, expect, test, vi } from 'vitest';
+
+vi.mock('../features/doesRequestHaveValidToken');
 import { doesRequestHaveValidToken } from '../features/doesRequestHaveValidToken';
 
-jest.mock('../openai/requestStartPrompt');
+vi.mock('../openai/requestStartPrompt');
 import { requestStartPrompt } from '../openai/requestStartPrompt';
 
-jest.mock('../openai/requestOngoingPrompt');
+vi.mock('../openai/requestOngoingPrompt');
 import { requestOngoingPrompt } from '../openai/requestOngoingPrompt';
 
 import { mockApp } from '../tests/mockApp';
@@ -13,7 +15,7 @@ const app = mockApp();
 
 describe('Prompt Router', () => {
   beforeEach(() => {
-    jest.mocked(doesRequestHaveValidToken).mockReturnValue(true);
+    vi.mocked(doesRequestHaveValidToken).mockReturnValue(true);
   });
 
   test('Dummy prompt is sent correctly', async () => {
@@ -23,19 +25,19 @@ describe('Prompt Router', () => {
   });
 
   test('Start prompt is sent correctly', async () => {
-    jest.mocked(requestStartPrompt).mockResolvedValue(mockPrompt);
+    vi.mocked(requestStartPrompt).mockResolvedValue(mockPrompt);
     const response = await app.post('/prompt/start');
     expect(response.body.entry.id).toEqual('test');
   });
 
   test('Start prompt returns 401 on invalid token ', async () => {
-    jest.mocked(doesRequestHaveValidToken).mockReturnValue(false);
+    vi.mocked(doesRequestHaveValidToken).mockReturnValue(false);
     const response = await app.post('/prompt/start');
     expect(response.status).toEqual(401);
   });
 
   test('Start prompt returns 500 on failed prompt', async () => {
-    jest.mocked(requestStartPrompt).mockImplementation(() => {
+    vi.mocked(requestStartPrompt).mockImplementation(() => {
       throw new Error('error');
     });
     const response = await app.post('/prompt/start');
@@ -43,7 +45,7 @@ describe('Prompt Router', () => {
   });
 
   test('Ongoing prompt is sent correctly', async () => {
-    jest.mocked(requestOngoingPrompt).mockResolvedValue(mockPrompt);
+    vi.mocked(requestOngoingPrompt).mockResolvedValue(mockPrompt);
     const response = await app
       .post('/prompt/ongoing')
       .send(mockEmptyChatHistory);
@@ -51,13 +53,13 @@ describe('Prompt Router', () => {
   });
 
   test('Ongoing prompt returns 401 on invalid token ', async () => {
-    jest.mocked(doesRequestHaveValidToken).mockReturnValue(false);
+    vi.mocked(doesRequestHaveValidToken).mockReturnValue(false);
     const response = await app.post('/prompt/ongoing');
     expect(response.status).toEqual(401);
   });
 
   test('Ongoing prompt returns 500 on failed prompt', async () => {
-    jest.mocked(requestOngoingPrompt).mockImplementation(() => {
+    vi.mocked(requestOngoingPrompt).mockImplementation(() => {
       throw new Error('error');
     });
     const response = await app

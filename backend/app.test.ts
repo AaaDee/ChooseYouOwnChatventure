@@ -1,8 +1,8 @@
-import { describe, test } from '@jest/globals';
+import { describe, test, vi } from 'vitest';
 import { requestDummyPrompt } from './openai/requestDummyPrompt';
 import { mockApp } from './tests/mockApp';
 
-jest.mock('./openai/requestDummyPrompt');
+vi.mock('./openai/requestDummyPrompt');
 
 const app = mockApp();
 
@@ -12,7 +12,7 @@ describe('app works at basic level;', () => {
   });
 
   test('post returns json content', async () => {
-    const mockedRequest = jest.mocked(requestDummyPrompt);
+    const mockedRequest = vi.mocked(requestDummyPrompt);
     mockedRequest.mockResolvedValue('test');
     await app.post('/').expect('Content-Type', /application\/json/);
   });

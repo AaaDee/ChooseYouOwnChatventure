@@ -1,3 +1,4 @@
+import { afterAll, beforeEach, describe, expect, test, vi } from 'vitest';
 import { getOpenAIClient } from './getOpenAIClient';
 
 describe('openai object', () => {
@@ -5,7 +6,7 @@ describe('openai object', () => {
   const OLD_ENV = process.env;
 
   beforeEach(() => {
-    jest.resetModules();
+    vi.resetModules();
     process.env = { OPENAI_API_KEY: 'dummy' };
   });
 

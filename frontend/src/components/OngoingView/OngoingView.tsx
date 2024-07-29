@@ -17,11 +17,9 @@ export function OngoingView() {
     <>
       <div data-testid="ongoing_text">{content}</div>
       {choices.map((choice) => (
-        <Button
-          key={choice.index}
-          content={choice.content}
-          onClick={requestOngoing(choice.index)}
-        />
+        <Button key={choice.index} onClick={requestOngoing(choice.index)}>
+          {choice.content}
+        </Button>
       ))}
     </>
   );

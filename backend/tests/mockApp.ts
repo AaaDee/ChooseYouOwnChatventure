@@ -1,7 +1,8 @@
 import supertest from 'supertest';
 import app from '../app';
+import { vi } from 'vitest';
 
-jest.mock('../features/setupMongoose');
+vi.mock('../features/setupMongoose');
 
 export function mockApp() {
   return supertest(app);

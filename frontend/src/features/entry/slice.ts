@@ -4,6 +4,7 @@ import { PromptResponse, TextEntry } from '../../types';
 import { postRequest } from '../../requests/postRequest';
 import { StateStatus } from '../enums';
 import imageData from '../../images/startImage.json';
+import { Endpoints } from '../../requests/endoints';
 
 export interface EntryState {
   entry?: TextEntry;
@@ -17,7 +18,7 @@ const initialState: EntryState = {
 };
 
 interface EntryRequestData {
-  endpoint: string;
+  endpoint: Endpoints;
   data: object; // todo fix type
 }
 

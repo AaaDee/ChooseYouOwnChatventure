@@ -1,26 +1,29 @@
+import { describe, test, vi } from 'vitest';
 import { mockApp } from '../tests/mockApp';
 
-jest.mock('../models/user');
+vi.mock('../models/user');
 import { User } from '../models/user';
 
-jest.mock('../features/isPasswordCorrect');
+vi.mock('../features/isPasswordCorrect');
 import { isPasswordCorrect } from '../features/isPasswordCorrect';
 
-jest.mock('../features/signUserToken');
+vi.mock('../features/signUserToken');
 import { signUserToken } from '../features/signUserToken';
 
 const app = mockApp();
 
-jest
-  .spyOn(User, 'findOne')
-  .mockResolvedValue({ _id: '123', username: 'user', passwordHash: 'test' });
+vi.spyOn(User, 'findOne').mockResolvedValue({
+  _id: '123',
+  username: 'user',
+  passwordHash: 'test'
+});
 
-jest.mocked(signUserToken).mockReturnValue('test');
+vi.mocked(signUserToken).mockReturnValue('test');
 
 describe('Login', () => {
   test('Successful login returns 200', async () => {
-    jest.mocked(isPasswordCorrect).mockResolvedValue(true);
-    jest.mocked(signUserToken).mockReturnValue('test');
+    vi.mocked(isPasswordCorrect).mockResolvedValue(true);
+    vi.mocked(signUserToken).mockReturnValue('test');
 
     await app
       .post('/user/login')
@@ -29,7 +32,7 @@ describe('Login', () => {
   });
 
   test('Successful login returns 401', async () => {
-    jest.mocked(isPasswordCorrect).mockResolvedValue(false);
+    vi.mocked(isPasswordCorrect).mockResolvedValue(false);
 
     await app
       .post('/user/login')

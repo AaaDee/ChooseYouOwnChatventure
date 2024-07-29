@@ -11,5 +11,5 @@ export function LogoutButton() {
     dispatch(removeUser());
   }
 
-  return <Button content="Logout" onClick={onClick} />;
+  return <Button onClick={onClick}>Logout</Button>;
 }

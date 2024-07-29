@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import { parseCompletionResponse } from './parseCompletionResponse';
 
 const mockResponse = `{"content": "test", "choices": ["one", "two", "three"], "description": "testing"}`;

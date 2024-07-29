@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from './useAppDispatch';
 import { fetchUser } from '../features/user/slice';
 import { selectHasFailed } from '../features/user/selectors';
+import { Endpoints } from '../requests/endoints';
 
 export function useLogin() {
   const [username, setUsername] = useState('');
@@ -17,7 +18,7 @@ export function useLogin() {
     }
     async function requestData() {
       const requestData = {
-        endpoint: 'user/login',
+        endpoint: Endpoints.LOGIN,
         data: { username, password }
       };
 
