@@ -1,10 +1,20 @@
 import { useSelector } from 'react-redux';
-import { StyledImage } from './style';
-import { selectImage } from '../../features/entry/selectors';
+import { StyledImage, StyledWrapper } from './style';
+import {
+  selectImage,
+  selectStatusIsLoading
+} from '../../features/entry/selectors';
+import { Spinner } from '../Spinner/Spinner';
 
 export function Illustration() {
   const imageData = useSelector(selectImage);
   const imageSrc = `data::image/jpg;base64, ${imageData}`;
+  const isLoading = useSelector(selectStatusIsLoading);
 
-  return <StyledImage src={imageSrc} width={512} height={512} />;
+  return (
+    <StyledWrapper>
+      {isLoading && <Spinner />}
+      <StyledImage src={imageSrc} />
+    </StyledWrapper>
+  );
 }

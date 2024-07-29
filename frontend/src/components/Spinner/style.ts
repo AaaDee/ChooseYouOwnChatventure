@@ -9,11 +9,10 @@ const keyFrames = keyframes`
 export const SpinnerBackground = styled.div`
   position: absolute;
   display: flex;
-  width: 40vw;
-  height: 40vh;
+  width: 100%;
+  height: 100%;
   background-color: rgba(100, 100, 100, 0.5);
   align-self: center;
-  margin-top: 100px;
   align-items: center;
   justify-content: center;
 `;
