@@ -8,7 +8,7 @@ Currently hosted at [chooseyourownchatventure.net](https://chooseyourownchatvent
 
 The project repo contains the code for both frontend and backend. The backend uses Node and Express, and the frontend uses React. Both are written in Typescript and tested using Jest.
 
-There is a CI/CD pipeline using GitHub Actions [here](./.gihub/workflows). The project is first tested for functionality and linting, and then pushed to an image on DockerHub. The images are watched in the production server and pulled on updates.
+There is a CI/CD pipeline using GitHub Actions [here](../.gihub/workflows). The project is first tested for functionality and linting, and then pushed to an image on DockerHub. The images are watched in the production server and pulled on updates.
 
 The production server is a self-configured cloud server.
 
