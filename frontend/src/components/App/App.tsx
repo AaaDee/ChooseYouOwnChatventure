@@ -4,11 +4,7 @@ import { Title } from '../Title/Title';
 import { StyledApp, StyledBody } from './style';
 import { TextBox } from '../TextBox/TextBox';
 import { useSelector } from 'react-redux';
-import {
-  selectEntryFailed,
-  selectStatusIsLoading
-} from '../../features/entry/selectors';
-import { Spinner } from '../Spinner/Spinner';
+import { selectEntryFailed } from '../../features/entry/selectors';
 import { LoginForm } from '../LoginForm/LoginForm';
 import { selectUser } from '../../features/user/selectors';
 import {
@@ -21,7 +17,6 @@ import { Header } from '../Header/Header';
 import { InfoPage } from '../InfoPage/InfoPage';
 
 export const App = () => {
-  const isLoading = useSelector(selectStatusIsLoading);
   const isFailed = useSelector(selectEntryFailed);
   const username = useSelector(selectUser);
   const isMuted = useSelector(selectAudioMuted);
@@ -37,7 +32,6 @@ export const App = () => {
         {isFailed && <ErrorBox />}
         {username && <TextBox />}
         {!username && <LoginForm />}
-        {isLoading && <Spinner />}
         {!isMuted && <AudioPlayer />}
       </StyledBody>
     </StyledApp>
