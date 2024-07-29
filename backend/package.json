@@ -4,9 +4,9 @@
   "main": "index.ts",
   "type": "module",
   "scripts": {
-    "start": "NODE_ENV=production npx tsx index.ts",
-    "dev": "NODE_ENV=development npx tsx watch index.ts",
-    "test": "NODE_ENV=test vitest",
+    "start": "npx tsx index.ts",
+    "dev": "npx tsx watch index.ts",
+    "test": "vitest",
     "coverage": "vitest run --coverage",
     "tsc": "tsc",
     "lint": "eslint --ext .ts ."
