@@ -5,13 +5,7 @@ import { userRouter } from './controllers/userRouter';
 import { promptRouter } from './controllers/promptRouter';
 import { setupMongoose } from './features/setupMongoose';
 
-void (async () => {
-  try {
-    await setupMongoose();
-  } catch (e) {
-    console.log('Mongoose setup failed', e);
-  }
-})();
+await setupMongoose();
 
 const app = express();
 
