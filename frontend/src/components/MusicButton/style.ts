@@ -5,6 +5,8 @@ export const StyledMusicButton = styled.button`
   position: relative;
   ${ButtonStyle}
 
+  min-width: 34px;
+
   &:hover {
     > div {
       color: #ededca;
