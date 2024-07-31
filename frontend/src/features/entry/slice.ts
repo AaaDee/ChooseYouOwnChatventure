@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit';
-import { PromptResponse, TextEntry } from '../../types';
+import { ChatHistory, PromptResponse, TextEntry } from '../../types';
 import { postRequest } from '../../requests/postRequest';
 import { StateStatus } from '../enums';
 import imageData from '../../images/startImage.json';
@@ -19,11 +19,11 @@ const initialState: EntryState = {
 
 interface EntryRequestData {
   endpoint: Endpoints;
-  data: object; // todo fix type
+  data?: ChatHistory;
 }
 
 export const fetchEntry = createAsyncThunk(
-  'entry/fetchStartEntry',
+  'entry/fetchEntry',
   async (data: EntryRequestData, _thunkAPI) => {
     const response = await postRequest(data.endpoint, data.data);
     return response.data as PromptResponse;
