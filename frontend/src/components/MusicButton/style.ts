@@ -14,7 +14,7 @@ export const StyledMusicButton = styled.button`
       color: ${globalStyles.colors.button};
     }
     > svg {
-      color: ${globalStyles.colors.button};
+      stroke: ${globalStyles.colors.button};
     }
   }
 `;
