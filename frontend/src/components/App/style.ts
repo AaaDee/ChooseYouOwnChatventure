@@ -18,5 +18,5 @@ export const StyledApp = styled.div`
   flex-flow: column;
   background-color: ${globalStyles.colors.background};
   align-items: center;
-  min-width: 600px;
+  min-width: 640px;
 `;
