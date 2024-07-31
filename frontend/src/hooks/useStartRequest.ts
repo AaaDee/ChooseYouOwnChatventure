@@ -13,8 +13,7 @@ export function useStartRequest() {
     }
     async function requestData() {
       const requestData = {
-        endpoint: Endpoints.START,
-        data: {}
+        endpoint: Endpoints.START
       };
       await dispatch(fetchEntry(requestData));
       setIsRequested(false);
