@@ -9,11 +9,11 @@ import './index';
 
 describe('starting the app', () => {
   test('app.listen is called', () => {
-    const mockApp = vi.mocked(app).mockImplementation(() => ({
-      listen: jest
-        .fn()
-        .mockImplementation((_port, callback: () => void) => callback())
-    }));
+    const mockApp = vi.mocked(app).mockImplementation(() => {
+      return {
+        listen: vi.fn()
+      };
+    });
 
     expect(mockApp.listen).toHaveBeenCalled();
   });
