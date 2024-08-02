@@ -1,11 +1,12 @@
 import { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
-import { ChatHistory } from '../types';
+import { ChatHistory, PromptResponse } from '../types';
 import { OpenAIRoles } from './types';
 import { PROMPT_INITIAL_CHOICES, promptFurtherChoices } from './prompts';
 import { requestCompletions } from './requestCompletions';
-import { requestImage } from './requestImage.ts';
 
-export async function requestOngoingPrompt(history: ChatHistory) {
+export async function requestOngoingPrompt(
+  history: ChatHistory
+): Promise<PromptResponse> {
   const { choices, entries } = history;
 
   const messageHistory: ChatCompletionMessageParam[] = [
@@ -41,15 +42,14 @@ export async function requestOngoingPrompt(history: ChatHistory) {
     throw new Error('unable to create completion');
   }
 
-  let image = null;
-  try {
-    image = await requestImage(completion.description);
-  } catch {
-    throw new Error('unable to create image');
-  }
+  // let image = null;
+  // try {
+  //   image = await requestImage(completion.description);
+  // } catch {
+  //   throw new Error('unable to create image');
+  // }
 
   return {
-    entry: completion,
-    image
+    entry: completion
   };
 }

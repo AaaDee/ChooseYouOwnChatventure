@@ -36,8 +36,7 @@ export const mockEntry: TextEntry = {
 };
 
 export const mockPrompt: PromptResponse = {
-  entry: mockEntry,
-  image: 'test'
+  entry: mockEntry
 };
 
 export const mockEmptyChatHistory: ChatHistory = {

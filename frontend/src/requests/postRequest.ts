@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { ChatHistory, UserInput } from '../types';
+import { ChatHistory, ImageDescription, UserInput } from '../types';
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-type DataTypes = ChatHistory | UserInput;
+type DataTypes = ChatHistory | UserInput | ImageDescription;
 
 export async function postRequest(endpoint: string, data?: DataTypes) {
   // todo check for existing

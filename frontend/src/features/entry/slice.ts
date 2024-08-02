@@ -3,17 +3,14 @@ import type { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit';
 import { ChatHistory, PromptResponse, TextEntry } from '../../types';
 import { postRequest } from '../../requests/postRequest';
 import { StateStatus } from '../enums';
-import imageData from '../../images/startImage.json';
 import { Endpoints } from '../../requests/endoints';
 
 export interface EntryState {
   entry?: TextEntry;
-  image: string;
   status: StateStatus;
 }
 
 const initialState: EntryState = {
-  image: imageData.data[0].b64_json,
   status: StateStatus.IDLE
 };
 
@@ -45,7 +42,6 @@ export const entrySlice = createSlice({
   extraReducers: (builder: ActionReducerMapBuilder<EntryState>) => {
     builder.addCase(fetchEntry.fulfilled, (state, action) => {
       state.entry = action.payload.entry;
-      state.image = action.payload.image;
       state.status = StateStatus.IDLE;
     });
     builder.addCase(fetchEntry.pending, (state, _action) => {

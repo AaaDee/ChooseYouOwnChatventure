@@ -1,10 +1,14 @@
 import React from 'react';
 import { SpinnerBackground, StyledSpinner } from './style';
 
-export function Spinner() {
+interface Props {
+  text: string;
+}
+
+export function Spinner({ text }: Props) {
   return (
     <SpinnerBackground>
-      <StyledSpinner>Venturing...</StyledSpinner>
+      <StyledSpinner>{text}...</StyledSpinner>
     </SpinnerBackground>
   );
 }

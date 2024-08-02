@@ -3,9 +3,8 @@ import { StateStatus } from '../enums';
 
 export const selectChoices = (state: RootState) => state.entry.entry?.choices;
 export const selectContent = (state: RootState) => state.entry.entry?.content;
-export const selectImage = (state: RootState) => state.entry.image;
 
-export const selectStatusIsLoading = (state: RootState) => {
+export const selectEntryOrUserLoading = (state: RootState) => {
   return (
     state.entry.status === StateStatus.LOADING ||
     state.user.status == StateStatus.LOADING

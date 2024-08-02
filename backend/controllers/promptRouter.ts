@@ -1,16 +1,17 @@
-import express from 'express';
+import express, { Response } from 'express';
 import { requestStartPrompt } from '../openai/requestStartPrompt';
-import { ChatHistory } from '../types';
+import { ChatHistory, ImageDescription } from '../types';
 import { mockEntry } from '../tests/mocks';
 import { requestOngoingPrompt } from '../openai/requestOngoingPrompt';
 import { doesRequestHaveValidToken } from '../features/doesRequestHaveValidToken';
+import { requestImage } from '../openai/requestImage';
 
 export const promptRouter = express.Router();
 
 promptRouter.post('/start', (request, response) => {
   void (async function (): Promise<void> {
     if (!doesRequestHaveValidToken(request)) {
-      response.status(401).json({ error: 'token invalid' });
+      sendInvalidTokenResponse(response);
       return;
     }
 
@@ -26,7 +27,7 @@ promptRouter.post('/start', (request, response) => {
 promptRouter.post('/ongoing', (request, response) => {
   void (async function (): Promise<void> {
     if (!doesRequestHaveValidToken(request)) {
-      response.status(401).json({ error: 'token invalid' });
+      sendInvalidTokenResponse(response);
       return;
     }
 
@@ -41,6 +42,28 @@ promptRouter.post('/ongoing', (request, response) => {
   })();
 });
 
+promptRouter.post('/image', (request, response) => {
+  void (async function (): Promise<void> {
+    if (!doesRequestHaveValidToken(request)) {
+      sendInvalidTokenResponse(response);
+      return;
+    }
+
+    const description = ImageDescription.parse(request.body);
+
+    try {
+      const image = await requestImage(description.description);
+      response.send(image);
+    } catch (error) {
+      response.status(500).send(error);
+    }
+  })();
+});
+
 promptRouter.post('/dummy', (_request, response) => {
   response.send(mockEntry);
 });
+
+function sendInvalidTokenResponse(response: Response) {
+  response.status(401).json({ error: 'token invalid' });
+}

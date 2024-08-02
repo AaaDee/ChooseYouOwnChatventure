@@ -39,4 +39,24 @@ describe('Login', () => {
       .send({ username: 'test', password: 'test' })
       .expect(401);
   });
+
+  test('MongoDB errors are caught with 500', async () => {
+    vi.spyOn(User, 'findOne').mockImplementation(() => {
+      throw new Error('error');
+    });
+
+    await app
+      .post('/user/login')
+      .send({ username: 'test', password: 'test' })
+      .expect(500);
+  });
+
+  test('No user found causes rejection', async () => {
+    vi.spyOn(User, 'findOne').mockResolvedValue(null);
+
+    await app
+      .post('/user/login')
+      .send({ username: 'test', password: 'test' })
+      .expect(401);
+  });
 });

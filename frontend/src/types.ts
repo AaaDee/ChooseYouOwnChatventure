@@ -7,6 +7,12 @@ export const Choice = z.object({
 
 export type Choice = z.infer<typeof Choice>;
 
+export const ImageDescription = z.object({
+  description: z.string()
+});
+
+export type ImageDescription = z.infer<typeof ImageDescription>;
+
 export const User = z.object({
   id: z.string(),
   username: z.string()
@@ -41,8 +47,7 @@ export const ChatHistory = z.object({
 });
 
 export const PromptResponse = z.object({
-  entry: TextEntry,
-  image: z.string()
+  entry: TextEntry
 });
 
 export type PromptResponse = z.infer<typeof PromptResponse>;

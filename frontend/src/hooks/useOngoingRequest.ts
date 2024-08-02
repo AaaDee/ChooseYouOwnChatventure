@@ -12,6 +12,7 @@ import {
 import { addEntry, addSelectedChoice } from '../features/history/slice';
 import { useAppDispatch } from './useAppDispatch';
 import { Endpoints } from '../requests/endoints';
+import { setImageStatusToRequested } from '../features/image/slice';
 
 export function useOngoingRequest() {
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
@@ -46,6 +47,7 @@ export function useOngoingRequest() {
       };
 
       await dispatch(fetchEntry(requestData));
+      dispatch(setImageStatusToRequested());
     }
   }, [choices, dispatch, entries, isRequested]);
 
