@@ -5,7 +5,7 @@ vi.mock('./features/setupMongoose');
 import app from './app';
 vi.mock('./app');
 
-import './index';
+import { callback } from './index';
 
 describe('starting the app', () => {
   test('app.listen is called', () => {
@@ -16,5 +16,11 @@ describe('starting the app', () => {
     });
 
     expect(mockApp.listen).toHaveBeenCalled();
+  });
+
+  test('callback use log', () => {
+    const spy = vi.spyOn(global.console, 'log');
+    callback(3001)();
+    expect(spy).toHaveBeenCalled();
   });
 });
