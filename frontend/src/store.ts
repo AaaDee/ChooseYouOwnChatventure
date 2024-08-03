@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import entryReducer from './features/entry/slice';
 import historyReducer from './features/history/slice';
+import imageReducer from './features/image/slice';
 import userReducer from './features/user/slice';
 import settingsReducer from './features/settings/slice';
 
@@ -8,6 +9,7 @@ export const store = configureStore({
   reducer: {
     entry: entryReducer,
     history: historyReducer,
+    image: imageReducer,
     user: userReducer,
     settings: settingsReducer
   }

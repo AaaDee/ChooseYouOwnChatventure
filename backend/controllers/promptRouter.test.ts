@@ -9,8 +9,16 @@ import { requestStartPrompt } from '../openai/requestStartPrompt';
 vi.mock('../openai/requestOngoingPrompt');
 import { requestOngoingPrompt } from '../openai/requestOngoingPrompt';
 
+vi.mock('../openai/requestImage');
+import { requestImage } from '../openai/requestImage';
+
 import { mockApp } from '../tests/mockApp';
-import { mockEmptyChatHistory, mockPrompt } from '../tests/mocks';
+import {
+  mockEmptyChatHistory,
+  mockImageDescription,
+  mockPrompt
+} from '../tests/mocks';
+
 const app = mockApp();
 
 describe('Prompt Router', () => {
@@ -65,6 +73,27 @@ describe('Prompt Router', () => {
     const response = await app
       .post('/prompt/ongoing')
       .send(mockEmptyChatHistory);
+    expect(response.status).toEqual(500);
+  });
+
+  test('Image prompt is sent correctly', async () => {
+    vi.mocked(requestImage).mockResolvedValue('test');
+    const response = await app.post('/prompt/image').send(mockImageDescription);
+    console.log(response);
+    expect(response.text).toEqual('test');
+  });
+
+  test('Image prompt returns 401 on invalid token ', async () => {
+    vi.mocked(doesRequestHaveValidToken).mockReturnValue(false);
+    const response = await app.post('/prompt/image').send(mockImageDescription);
+    expect(response.status).toEqual(401);
+  });
+
+  test('Image prompt returns 500 on failed prompt', async () => {
+    vi.mocked(requestImage).mockImplementation(() => {
+      throw new Error('error');
+    });
+    const response = await app.post('/prompt/image').send(mockImageDescription);
     expect(response.status).toEqual(500);
   });
 });
