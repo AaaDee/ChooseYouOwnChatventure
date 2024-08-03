@@ -5,6 +5,7 @@ import {
   PromptResponse,
   TextEntry
 } from '../types';
+import { ChatCompletionMessageParam } from 'openai/resources';
 
 export const mockOpenAiCompletionResponse: OpenAI.Chat.Completions.ChatCompletion =
   {
@@ -49,6 +50,13 @@ export const mockEmptyChatHistory: ChatHistory = {
   choices: []
 };
 
+export const mockChatHistoryOneChoice: ChatHistory = {
+  entries: [mockEntry],
+  choices: [1]
+};
+
 export const mockImageDescription: ImageDescription = {
   description: 'test'
 };
+
+export const mockParsedHistory: ChatCompletionMessageParam[] = [];

@@ -9,10 +9,11 @@ export async function requestOngoingPrompt(
 ): Promise<PromptResponse> {
   const { choices, entries } = history;
 
-  const messageHistory: ChatCompletionMessageParam[] = [
+  let messageHistory: ChatCompletionMessageParam[] = [
     { role: OpenAIRoles.USER, content: PROMPT_INITIAL_CHOICES }
   ];
 
+  console.log('entries length', entries.length);
   entries.forEach((entry, index) => {
     let message_content = entry.content;
     entry.choices.forEach((choice) => {
@@ -23,21 +24,22 @@ export async function requestOngoingPrompt(
       role: OpenAIRoles.SYSTEM,
       content: message_content
     };
-    messageHistory.push(contentMessage);
+    messageHistory = [...messageHistory, contentMessage];
 
     const choice = choices[index];
     const choiceMessage = {
       role: OpenAIRoles.USER,
       content: promptFurtherChoices(choice)
     };
-    messageHistory.push(choiceMessage);
+    messageHistory = [...messageHistory, choiceMessage];
   });
 
   console.log(messageHistory);
+  console.log('mh len', messageHistory.length);
 
   let completion = null;
   try {
-    completion = await requestCompletions(messageHistory);
+    completion = await requestCompletions([...messageHistory]);
   } catch {
     throw new Error('unable to create completion');
   }

@@ -9,6 +9,7 @@ import OpenAI from 'openai';
 export const requestCompletions = async (
   messages: Array<ChatCompletionMessageParam>
 ): Promise<TextEntry> => {
+  console.log('called with', messages);
   const openai = getOpenAIClient();
 
   const completions = await getCompletions(openai, messages);
