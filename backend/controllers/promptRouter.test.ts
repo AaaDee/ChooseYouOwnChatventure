@@ -79,7 +79,6 @@ describe('Prompt Router', () => {
   test('Image prompt is sent correctly', async () => {
     vi.mocked(requestImage).mockResolvedValue('test');
     const response = await app.post('/prompt/image').send(mockImageDescription);
-    console.log(response);
     expect(response.text).toEqual('test');
   });
 
