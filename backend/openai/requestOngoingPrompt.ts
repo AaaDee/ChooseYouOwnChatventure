@@ -35,7 +35,6 @@ export async function requestOngoingPrompt(
   });
 
   let completion = null;
-  console.log(messageHistory);
   try {
     completion = await requestCompletions(messageHistory);
   } catch {
