@@ -15,8 +15,9 @@ export async function requestOngoingPrompt(
 
   entries.forEach((entry, index) => {
     let message_content = entry.content;
-    entry.choices.forEach((choice) => {
-      message_content += choice.content;
+    entry.choices.forEach((choice, index) => {
+      const choiceLine = ` \n${index + 1}: ${choice.content}`;
+      message_content += choiceLine;
     });
 
     const contentMessage = {
@@ -34,6 +35,7 @@ export async function requestOngoingPrompt(
   });
 
   let completion = null;
+  console.log(messageHistory);
   try {
     completion = await requestCompletions(messageHistory);
   } catch {
