@@ -11,10 +11,9 @@ export function parseCompletionResponse(response: string | null): TextEntry {
 
   let stringResponse = response;
 
-  if (stringResponse.startsWith('```json')) {
-    console.log('removing json from prompt response');
-    stringResponse = stringResponse.replace('```json', '');
-    stringResponse = stringResponse.replace('```', '');
+  if (startsWithBackTicks(stringResponse)) {
+    console.log('removing backticks from prompt response');
+    stringResponse = removeBackTicks(stringResponse);
   }
 
   let jsonResponse;
@@ -72,5 +71,16 @@ function parseChoices(choices: unknown): Choice[] {
       };
     }
   );
+  return result;
+}
+
+// Check for a typical OpenAI response error
+function startsWithBackTicks(response: string): boolean {
+  return response.startsWith('```json');
+}
+
+function removeBackTicks(response: string): string {
+  let result = response.replace('```json', '');
+  result = result.replace('```', '');
   return result;
 }
