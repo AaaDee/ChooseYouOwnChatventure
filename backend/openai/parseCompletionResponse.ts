@@ -2,10 +2,7 @@ import { Choice, TextEntry } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 import { z } from 'zod';
 
-export function parseCompletionResponse(response: string | null): TextEntry {
-  if (response === null) {
-    throw new Error('null response');
-  }
+export function parseCompletionResponse(response: string): TextEntry {
   console.log('response:', response);
 
   let stringResponse = response;

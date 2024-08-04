@@ -53,5 +53,5 @@ async function getCompletions(
 }
 
 function getCompletionsContent(completions: ChatCompletion) {
-  return completions.choices[0].message.content;
+  return completions.choices[0].message.content as string;
 }
