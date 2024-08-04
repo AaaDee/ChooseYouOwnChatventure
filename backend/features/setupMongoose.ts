@@ -15,6 +15,6 @@ export async function setupMongoose() {
     await mongoose.connect(url);
     console.log('connected to MongoDB');
   } catch (error) {
-    console.log('error connecting to MongoDB:', error);
+    console.warn('error connecting to MongoDB:', error);
   }
 }
