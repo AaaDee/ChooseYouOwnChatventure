@@ -60,3 +60,5 @@ export const mockImageDescription: ImageDescription = {
 };
 
 export const mockParsedHistory: ChatCompletionMessageParam[] = [];
+
+export const mockJsonStringResponse = `{"content": "test", "choices": ["one", "two", "three"], "description": "testing"}`;
