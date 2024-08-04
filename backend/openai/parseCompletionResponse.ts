@@ -2,6 +2,12 @@ import { Choice, TextEntry } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 import { z } from 'zod';
 
+const UnformattedChoiceValidator = z.string().array();
+
+interface UnverifiedJson {
+  [key: string]: unknown;
+}
+
 export function parseCompletionResponse(response: string): TextEntry {
   console.log('response:', response);
 
@@ -14,15 +20,11 @@ export function parseCompletionResponse(response: string): TextEntry {
 
   let jsonResponse;
   try {
-    jsonResponse = JSON.parse(stringResponse) as object;
+    jsonResponse = JSON.parse(stringResponse) as UnverifiedJson;
     console.log(jsonResponse);
   } catch (error) {
     console.log(error);
     throw new Error('Response is not a valid json');
-  }
-
-  if (!('choices' in jsonResponse)) {
-    throw new Error('choices missing from json response');
   }
 
   const updatedResponse = {
@@ -34,8 +36,6 @@ export function parseCompletionResponse(response: string): TextEntry {
   const entry = TextEntry.parse(updatedResponse);
   return entry;
 }
-
-const UnformattedChoiceValidator = z.string().array();
 
 function formatChoices(choices: unknown): Choice[] {
   const validatedChoices = UnformattedChoiceValidator.parse(choices);

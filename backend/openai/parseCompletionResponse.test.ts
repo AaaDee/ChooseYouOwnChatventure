@@ -17,4 +17,10 @@ describe('completions parser', () => {
     const entry = parseCompletionResponse(mockJsonStringResponse);
     expect(entry.choices[0].content).toEqual('one');
   });
+
+  test('catches backticks from open ai', () => {
+    const badResponse = '```json' + mockJsonStringResponse + '```';
+    const entry = parseCompletionResponse(badResponse);
+    expect(entry.content).toEqual('test');
+  });
 });
