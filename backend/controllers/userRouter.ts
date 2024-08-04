@@ -52,13 +52,7 @@ userRouter.post('/login', (request, response) => {
     }
 
     const verified_user = user as UserSchema;
-
-    const userForToken = {
-      username: verified_user.username,
-      id: verified_user._id
-    };
-
-    const token = signUserToken(userForToken);
+    const token = signUserToken(verified_user);
 
     console.log('sending token for', username);
     response.status(200).send({ token, username: verified_user.username });

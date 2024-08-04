@@ -1,7 +1,7 @@
 import jsonwebtoken from 'jsonwebtoken';
-import { User } from '../types';
+import { UserSchema } from '../models/user';
 
-export function signUserToken(user: User) {
+export function signUserToken(user: UserSchema) {
   if (!process.env.SECRET) {
     throw new Error('Secret missing from env');
   }
