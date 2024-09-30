@@ -5,6 +5,8 @@ import {
   PromptResponse,
   TextEntry
 } from '../types';
+import { ChatCompletionMessageParam } from 'openai/resources';
+import { UserSchema } from '../models/user';
 
 export const mockOpenAiCompletionResponse: OpenAI.Chat.Completions.ChatCompletion =
   {
@@ -49,6 +51,21 @@ export const mockEmptyChatHistory: ChatHistory = {
   choices: []
 };
 
+export const mockChatHistoryOneChoice: ChatHistory = {
+  entries: [mockEntry],
+  choices: [1]
+};
+
 export const mockImageDescription: ImageDescription = {
   description: 'test'
+};
+
+export const mockParsedHistory: ChatCompletionMessageParam[] = [];
+
+export const mockJsonStringResponse = `{"content": "test", "choices": ["one", "two", "three"], "description": "testing"}`;
+
+export const mockUser: UserSchema = {
+  _id: 'testID',
+  username: 'test',
+  passwordHash: 'hashedSecurely'
 };

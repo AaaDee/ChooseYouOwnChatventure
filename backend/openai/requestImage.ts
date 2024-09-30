@@ -11,14 +11,13 @@ export const requestImage = async (description: string): Promise<string> => {
     throw new Error('unable to get image');
   }
 
-  if (!imageResponse) {
-    throw new Error('unable to get image');
-  }
-
   return imageResponse;
 };
 
-async function getImageResponse(openai: OpenAI, description: string) {
+async function getImageResponse(
+  openai: OpenAI,
+  description: string
+): Promise<string> {
   const prompt = promptImage(description);
 
   const imageResponse = await openai.images.generate({
@@ -30,5 +29,5 @@ async function getImageResponse(openai: OpenAI, description: string) {
     size: '1024x1024'
   });
 
-  return imageResponse.data[0].b64_json;
+  return imageResponse.data[0].b64_json as string;
 }

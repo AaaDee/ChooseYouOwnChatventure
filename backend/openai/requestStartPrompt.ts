@@ -12,7 +12,7 @@ export async function requestStartPrompt(): Promise<PromptResponse> {
   try {
     completion = await requestCompletions(startPromptMessages);
   } catch {
-    throw new Error('unable to create completion');
+    throw new Error('unable to create a completion');
   }
 
   return {

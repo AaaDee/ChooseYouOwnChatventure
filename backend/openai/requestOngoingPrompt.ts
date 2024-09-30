@@ -15,8 +15,9 @@ export async function requestOngoingPrompt(
 
   entries.forEach((entry, index) => {
     let message_content = entry.content;
-    entry.choices.forEach((choice) => {
-      message_content += choice.content;
+    entry.choices.forEach((choice, index) => {
+      const choiceLine = ` \n${index + 1}: ${choice.content}`;
+      message_content += choiceLine;
     });
 
     const contentMessage = {
@@ -33,21 +34,12 @@ export async function requestOngoingPrompt(
     messageHistory.push(choiceMessage);
   });
 
-  console.log(messageHistory);
-
   let completion = null;
   try {
     completion = await requestCompletions(messageHistory);
   } catch {
     throw new Error('unable to create completion');
   }
-
-  // let image = null;
-  // try {
-  //   image = await requestImage(completion.description);
-  // } catch {
-  //   throw new Error('unable to create image');
-  // }
 
   return {
     entry: completion
