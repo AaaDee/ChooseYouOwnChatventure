@@ -53,6 +53,8 @@
     "@testing-library/user-event": "^14.5.2",
     "@types/react-helmet": "^6.1.11",
     "@vitejs/plugin-react": "^4.3.2",
+    "@vitest/coverage-istanbul": "^2.1.2",
+    "@vitest/coverage-v8": "^2.1.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
