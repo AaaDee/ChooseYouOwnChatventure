@@ -18,7 +18,7 @@ describe('starting the app', () => {
     expect(mockApp.listen).toHaveBeenCalled();
   });
 
-  test('callback use log', () => {
+  test('callback uses log', () => {
     const spy = vi.spyOn(global.console, 'log');
     callback(3001)();
     expect(spy).toHaveBeenCalled();
