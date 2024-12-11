@@ -2,7 +2,6 @@ import { afterAll, describe, expect, test } from 'vitest';
 import { Request } from 'express';
 import { doesRequestHaveValidToken } from './doesRequestHaveValidToken';
 import { signUserToken } from './signUserToken';
-import { User } from '../types';
 
 describe('Token validator', () => {
   // save environment for manipulation
