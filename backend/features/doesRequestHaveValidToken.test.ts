@@ -46,7 +46,8 @@ describe('Token validator', () => {
 
   test('Validator with correct secret succeeds', () => {
     process.env = { SECRET: 'secret' };
-    const token = signUserToken({} as User);
+    // todo fix
+    const token = signUserToken({ username: 'test' } as any as User);
 
     const req = {
       get: () => `Bearer ${token}`
