@@ -25,7 +25,8 @@ export function isTokenValid(authorization: string): boolean {
     token,
     process.env.SECRET
   ) as JwtPayload;
-  return !!decodedToken.id;
+
+  return !!decodedToken._id;
 }
 
 function getTokenFrom(authorization: string): string | null {

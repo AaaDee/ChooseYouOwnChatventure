@@ -46,17 +46,20 @@ describe('Token validator', () => {
   test('Validator with correct secret succeeds', () => {
     process.env = { SECRET: 'secret' };
     // todo fix to use user instead of full schema
-    const token = signUserToken({
+    const user = {
       username: 'test',
       _id: '_123',
       passwordHash: 'asdf'
-    });
+    };
+
+    const schemaedUser = { ...user, toObject: () => user };
+    const token = signUserToken(schemaedUser);
 
     const req = {
       get: () => `Bearer ${token}`
     } as unknown as Request;
 
     const isValid = doesRequestHaveValidToken(req);
-    expect(isValid).toBeFalsy();
+    expect(isValid).toBeTruthy();
   });
 });
