@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { InferRawDocType } from 'mongoose';
 
 const userSchemaDefinition = {
   _id: { type: String, required: true },
@@ -10,9 +10,8 @@ const userSchema = new mongoose.Schema(userSchemaDefinition, { toObject: {} });
 
 export const User = mongoose.model('User', userSchema);
 
-export interface UserSchema {
-  _id: string;
-  username: string;
-  passwordHash: string;
+export type UserSchema = InferRawDocType<typeof userSchemaDefinition>;
+
+export interface UserMongooseSchema extends UserSchema {
   toObject: () => object;
 }

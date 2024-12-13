@@ -12,10 +12,15 @@ import { signUserToken } from '../features/signUserToken';
 
 const app = mockApp();
 
-vi.spyOn(User, 'findOne').mockResolvedValue({
+const mockUser = {
   _id: '123',
   username: 'user',
   passwordHash: 'test'
+};
+
+vi.spyOn(User, 'findOne').mockResolvedValue({
+  ...mockUser,
+  toObject: () => mockUser
 });
 
 vi.mocked(signUserToken).mockReturnValue('test');
@@ -31,7 +36,7 @@ describe('Login', () => {
       .expect(200);
   });
 
-  test('Successful login returns 401', async () => {
+  test('Incorrect password returns 401', async () => {
     vi.mocked(isPasswordCorrect).mockResolvedValue(false);
 
     await app
