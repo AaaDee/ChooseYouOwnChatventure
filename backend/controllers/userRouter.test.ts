@@ -50,6 +50,9 @@ describe('Login', () => {
       throw new Error('error');
     });
 
+    // suppress errors from console as these are expected here
+    vi.spyOn(global.console, 'error').mockImplementation(() => {});
+
     await app
       .post('/user/login')
       .send({ username: 'test', password: 'test' })

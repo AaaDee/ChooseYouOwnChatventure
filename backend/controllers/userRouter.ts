@@ -38,7 +38,7 @@ userRouter.post('/login', (request, response) => {
         user = userEntry?.toObject() as UserSchema | undefined;
       }
     } catch (error) {
-      console.log('MongoDB error', error);
+      console.error('MongoDB error', error);
       response.status(500).json({
         error: 'unable to access database'
       });
