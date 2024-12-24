@@ -9,6 +9,7 @@ import { isPasswordCorrect } from '../features/isPasswordCorrect';
 
 vi.mock('../features/signUserToken');
 import { signUserToken } from '../features/signUserToken';
+import { suppressErrorLogsFromTest } from '../tests/utils';
 
 const app = mockApp();
 
@@ -51,7 +52,7 @@ describe('Login', () => {
     });
 
     // suppress errors from console as these are expected here
-    vi.spyOn(global.console, 'error').mockImplementation(() => {});
+    suppressErrorLogsFromTest();
 
     await app
       .post('/user/login')

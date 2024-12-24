@@ -19,7 +19,7 @@ promptRouter.post('/start', (request, response) => {
       const prompt = await requestStartPrompt();
       response.send(prompt);
     } catch (error) {
-      console.log('error in start request', error);
+      console.error('error in start request', error);
       response.status(500).send(error);
     }
   })();
