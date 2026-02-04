@@ -21,9 +21,8 @@ export function parseCompletionResponse(response: string): TextEntry {
   let jsonResponse;
   try {
     jsonResponse = JSON.parse(stringResponse) as UnverifiedJson;
-    console.log(jsonResponse);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw new Error('Response is not a valid json');
   }
 

@@ -18,7 +18,7 @@ export const requestCompletions = async (
     const response = parseCompletionResponse(completionsContent);
     return response;
   } catch (error) {
-    console.log(error, completionsContent);
+    console.error(error, completionsContent);
     console.log('reattempting');
 
     messages.push(completions.choices[0].message);
@@ -34,8 +34,7 @@ export const requestCompletions = async (
       const response = parseCompletionResponse(retryCompletionsContent);
       return response;
     } catch (error) {
-      console.log('retry error');
-      console.log(error, retryCompletionsContent);
+      console.error('retry error:', error, completionsContent);
     }
   }
   throw new Error('unable to return a text completion');

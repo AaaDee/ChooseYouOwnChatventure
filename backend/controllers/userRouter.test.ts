@@ -9,13 +9,19 @@ import { isPasswordCorrect } from '../features/isPasswordCorrect';
 
 vi.mock('../features/signUserToken');
 import { signUserToken } from '../features/signUserToken';
+import { suppressErrorLogsFromTest } from '../tests/utils';
 
 const app = mockApp();
 
-vi.spyOn(User, 'findOne').mockResolvedValue({
+const mockUser = {
   _id: '123',
   username: 'user',
   passwordHash: 'test'
+};
+
+vi.spyOn(User, 'findOne').mockResolvedValue({
+  ...mockUser,
+  toObject: () => mockUser
 });
 
 vi.mocked(signUserToken).mockReturnValue('test');
@@ -31,7 +37,7 @@ describe('Login', () => {
       .expect(200);
   });
 
-  test('Successful login returns 401', async () => {
+  test('Incorrect password returns 401', async () => {
     vi.mocked(isPasswordCorrect).mockResolvedValue(false);
 
     await app
@@ -44,6 +50,9 @@ describe('Login', () => {
     vi.spyOn(User, 'findOne').mockImplementation(() => {
       throw new Error('error');
     });
+
+    // suppress errors from console as these are expected here
+    suppressErrorLogsFromTest();
 
     await app
       .post('/user/login')

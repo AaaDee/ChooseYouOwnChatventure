@@ -1,5 +1,5 @@
 import express from 'express';
-import { User, UserSchema } from '../models/user';
+import { User, UserMongooseSchema, UserSchema } from '../models/user';
 import { UserInput } from '../types';
 import { isPasswordCorrect } from '../features/isPasswordCorrect';
 import { signUserToken } from '../features/signUserToken';
@@ -31,9 +31,14 @@ userRouter.post('/login', (request, response) => {
 
     let user = null;
     try {
-      user = await User.findOne({ username });
+      const userEntry = (await User.findOne({
+        username
+      })) as UserMongooseSchema;
+      if (userEntry) {
+        user = userEntry?.toObject() as UserSchema | undefined;
+      }
     } catch (error) {
-      console.log('MongoDB error', error);
+      console.error('MongoDB error', error);
       response.status(500).json({
         error: 'unable to access database'
       });
@@ -51,7 +56,7 @@ userRouter.post('/login', (request, response) => {
       return;
     }
 
-    const verified_user = user as UserSchema;
+    const verified_user = user as UserSchema; // user != undefined checked earlier
     const token = signUserToken(verified_user);
 
     console.log('sending token for', username);

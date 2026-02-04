@@ -6,6 +6,7 @@ vi.mock('./getOpenAIClient');
 import OpenAI from 'openai';
 import { mockJsonStringResponse } from '../tests/mocks';
 import { requestCompletions } from './requestCompletions';
+import { suppressErrorLogsFromTest } from '../tests/utils';
 
 const mockResponse = {
   choices: [{ message: { content: mockJsonStringResponse } }]
@@ -33,6 +34,8 @@ describe('Text requests', () => {
       .mockResolvedValueOnce(badResponse)
       .mockResolvedValue(mockResponse);
 
+    suppressErrorLogsFromTest();
+
     mockOpenAI(mockCreate);
     const text = await requestCompletions([]);
     expect(text.content).toEqual('test');
@@ -41,6 +44,9 @@ describe('Text requests', () => {
   test('Fails eventually', async () => {
     const mockCreate = vi.fn().mockResolvedValue(badResponse);
     mockOpenAI(mockCreate);
+
+    suppressErrorLogsFromTest();
+
     await expect(requestCompletions([])).rejects.toThrowError('completion');
   });
 });

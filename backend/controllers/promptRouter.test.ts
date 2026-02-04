@@ -18,6 +18,7 @@ import {
   mockImageDescription,
   mockPrompt
 } from '../tests/mocks';
+import { suppressErrorLogsFromTest } from '../tests/utils';
 
 const app = mockApp();
 
@@ -48,6 +49,9 @@ describe('Prompt Router', () => {
     vi.mocked(requestStartPrompt).mockImplementation(() => {
       throw new Error('error');
     });
+
+    suppressErrorLogsFromTest();
+
     const response = await app.post('/prompt/start');
     expect(response.status).toEqual(500);
   });

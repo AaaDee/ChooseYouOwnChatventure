@@ -31,7 +31,9 @@ describe('Mongoose setup', () => {
       throw new Error('error');
     });
 
-    const consoleSpy = vi.spyOn(global.console, 'warn');
+    const consoleSpy = vi
+      .spyOn(global.console, 'warn')
+      .mockImplementation(() => {});
 
     await setupMongoose();
     expect(consoleSpy).toHaveBeenCalled();
