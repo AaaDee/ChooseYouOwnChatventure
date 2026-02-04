@@ -1,3 +1,4 @@
+version: '3'
 services:
   front:
     image: aaadee/chatventure-front
@@ -25,10 +26,8 @@ services:
     depends_on:
       front:
         condition: service_started
-        restart: true
       back:
         condition: service_started
-        restart: true
     healthcheck:
       test: curl --fail https://chooseyourownchatventure.net/ || exit 1
       interval: 60s
