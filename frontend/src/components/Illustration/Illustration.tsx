@@ -1,8 +1,9 @@
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectEntryOrUserLoading } from '../../features/entry/selectors';
 import {
   selectImage,
-  selectImageIsLoading
+  selectIsRequestingImage
 } from '../../features/image/selectors';
 import { useLoadImage } from '../../hooks/useLoadImage';
 import { Spinner } from '../Spinner/Spinner';
@@ -13,13 +14,21 @@ export function Illustration() {
   const image = useSelector(selectImage);
   const imageSrc = formatImageSource(image);
   const entryOrUserIsLoading = useSelector(selectEntryOrUserLoading);
-  const imageIsLoading = useSelector(selectImageIsLoading);
+  const isRequestingImage = useSelector(selectIsRequestingImage);
+
+  const [imageIsLoading, setImageIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (isRequestingImage) {
+      setImageIsLoading(true);
+    }
+  }, [isRequestingImage]);
 
   return (
     <StyledWrapper>
       {entryOrUserIsLoading && <Spinner text={'Venturing'} />}
       {imageIsLoading && <Spinner text={'Observing the surroundings'} />}
-      <StyledImage src={imageSrc} />
+      <StyledImage src={imageSrc} onLoad={() => setImageIsLoading(false)} />
     </StyledWrapper>
   );
 }
