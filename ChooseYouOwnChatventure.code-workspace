@@ -1,0 +1,10 @@
+{
+	"folders": [
+	{ "path": "." },
+    { "path": "frontend" },
+    { "path": "backend" }
+  ],
+  "settings": {
+    "vitest.workspaceConfigPath": "vitest.workspace.js"
+  }
+}
