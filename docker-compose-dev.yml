@@ -4,11 +4,16 @@ services:
     build:
       context: ./frontend
     container_name: front
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
   back:
     image: chatventure-back-dev
     build:
       context: ./backend
     volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
       - ./backend/.env:/usr/src/app/.env
     container_name: back
   nginx:
