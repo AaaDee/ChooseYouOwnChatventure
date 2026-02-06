@@ -1,12 +1,12 @@
 import { describe, expect, test, vi } from 'vitest';
-
-vi.mock('./getOpenAIClient');
 import { getOpenAIClient } from './getOpenAIClient';
 
-import { requestImage } from './requestImage';
-import OpenAI from 'openai';
+vi.mock('./getOpenAIClient');
 
-const mockResponse = { data: [{ b64_json: 'test' }] };
+import OpenAI from 'openai';
+import { requestImage } from './requestImage';
+
+const mockResponse = { data: [{ url: 'test' }] };
 
 describe('Image requests', () => {
   test('Returns the generated image', async () => {
