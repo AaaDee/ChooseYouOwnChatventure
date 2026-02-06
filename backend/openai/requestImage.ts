@@ -23,11 +23,11 @@ async function getImageResponse(
   const imageResponse = await openai.images.generate({
     prompt,
     n: 1,
-    response_format: 'b64_json',
+    response_format: 'url',
     quality: 'standard',
     model: 'dall-e-3',
     size: '1024x1024'
   });
 
-  return imageResponse.data[0].b64_json as string;
+  return imageResponse.data[0].url as string;
 }
