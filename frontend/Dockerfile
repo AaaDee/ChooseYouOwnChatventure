@@ -2,7 +2,7 @@ FROM node:20
 
 WORKDIR /usr/src/app
 
-ENV REACT_APP_BACKEND_URL=/api
+ENV VITE_BACKEND_URL=/api
 
 COPY --chown=node:node . .
 
@@ -14,4 +14,4 @@ RUN npm install -g serve
 
 USER node
 
-CMD ["serve", "build"]
+CMD ["serve", "-s", "dist"]
