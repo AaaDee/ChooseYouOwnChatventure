@@ -1,17 +1,14 @@
 services:
   front:
-    image: chatventure-front-dev
+    image: chatventure-front-ci
     build:
       context: ./frontend
     container_name: front
-    volumes:
-      - ./frontend:/usr/src/app
-      - /usr/src/app/node_modules
     environment:
       - VITE_BACKEND_URL=http://localhost:3001
 
   back:
-    image: chatventure-back-dev
+    image: chatventure-back-ci
     build:
       context: ./backend
     volumes:
