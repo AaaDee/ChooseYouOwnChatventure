@@ -43,18 +43,11 @@ services:
         - ./certbot/conf:/etc/letsencrypt
         - ./certbot/www:/var/www/certbot
     command: certonly --webroot -w /var/www/certbot -d chooseyourownchatventure.net --agree-tos --non-interactive
-  ouroboros:
-    container_name: ouroboros
-    hostname: ouroboros
-    image: pyouroboros/ouroboros
-    environment:
-      - CLEANUP=true
-      - INTERVAL=30
-      - LOG_LEVEL=info
-      - SELF_UPDATE=true
-    restart: unless-stopped
+  watchtower:
+    image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30 --cleanup
   autoheal:
     image: willfarrell/autoheal
     container_name: autoheal
