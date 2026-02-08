@@ -18,6 +18,8 @@ services:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
       - ./backend/.env:/usr/src/app/.env
+    environment:
+      - MONGODB_URL=dummy
     container_name: back
   nginx:
     container_name: nginx
