@@ -1,0 +1,33 @@
+services:
+  front:
+    image: chatventure-front-dev
+    build:
+      context: ./frontend
+    container_name: front
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - VITE_BACKEND_URL=http://localhost:3001
+
+  back:
+    image: chatventure-back-dev
+    build:
+      context: ./backend
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+      - ./backend/.env:/usr/src/app/.env
+    container_name: back
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+    env_file:
+      - ./backend/.env
+  nginx:
+    container_name: nginx
+    restart: unless-stopped
+    image: nginx
+    ports:
+        - 80:80
+    volumes:
+        - ./nginx/nginx-dev.conf:/etc/nginx/nginx.conf
