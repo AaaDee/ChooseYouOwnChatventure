@@ -25,6 +25,9 @@ jobs:
             - name: Install Playwright Browsers
               run: npx playwright install --with-deps
 
+            - name: Print logs
+              run: docker compose -f docker-compose-dev.yml logs -f -t
+
             - name: Run Playwright tests
               run: npx playwright test
 
