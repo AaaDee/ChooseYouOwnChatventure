@@ -27,13 +27,13 @@ jobs:
                   MONGODB_URI: mongodb://host.docker.internal:27017/test
 
             - name: Stream Docker Logs
-              run: docker compose -f docker-compose-ci.yml logs -f &
+              run: docker compose -f docker-compose-ci.yml logs -t
 
             - name: Install Playwright Browsers
               run: npx playwright install --with-deps
 
             - name: Print logs
-              run: docker compose -f docker-compose-ci.yml logs -f -t
+              run: docker compose -f docker-compose-ci.yml logs -t
 
             - name: Run Playwright tests
               run: npx playwright test
