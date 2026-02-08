@@ -17,22 +17,27 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: "20"
+
             - name: npm install
               run: |
                   npm install "./backend"
                   npm install "./frontend"
+
             - name: lint front
               run: |
                   npm run lint
               working-directory: ./frontend
+
             - name: lint back
               run: |
                   npm run lint
               working-directory: ./backend
+
             - name: test front
               run: |
                   npm test
               working-directory: ./frontend
+
             - name: test back
               run: |
                   npm test
