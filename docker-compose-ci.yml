@@ -21,6 +21,8 @@ services:
     container_name: back
     environment:
       - MONGODB_URI=${MONGODB_URI}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   nginx:
     container_name: nginx
