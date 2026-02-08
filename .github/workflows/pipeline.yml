@@ -37,3 +37,7 @@ jobs:
               run: |
                   npm test
               working-directory: ./backend
+            - name: start services
+              run: docker compose -f docker-compose-dev.yml up -d
+            - name: run playwright
+              run: npx playwright test
