@@ -26,17 +26,8 @@ jobs:
               env:
                   MONGODB_URI: mongodb://host.docker.internal:27017/test
 
-            - name: Stream Docker Logs
-              run: docker compose -f docker-compose-ci.yml logs -t
-
             - name: Install Playwright Browsers
               run: npx playwright install --with-deps
-
-            - name: Print logs
-              run: docker compose -f docker-compose-ci.yml logs -t
-
-            - name: Wait for Frontend
-              run: npx wait-on http-get://127.0.0.1:80 --timeout 60000 -v
 
             - name: Run Playwright tests
               run: npx playwright test
