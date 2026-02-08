@@ -35,8 +35,15 @@ jobs:
             - name: Print logs
               run: docker compose -f docker-compose-ci.yml logs -t
 
+            - name: Wait for Frontend
+              run: npx wait-on http://127.0.0.1:80 --timeout 60000 -v
+
             - name: Run Playwright tests
               run: npx playwright test
+
+            - name: Dump Docker Logs on Failure
+              if: failure()
+              run: docker compose -f docker-compose-dev.yml logs --tail="all" -t
 
             - uses: actions/upload-artifact@v4
               if: ${{ !cancelled() }}
