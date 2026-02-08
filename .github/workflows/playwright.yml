@@ -22,9 +22,6 @@ jobs:
             - name: Stream Docker Logs
               run: docker compose -f docker-compose-dev.yml logs -f &
 
-            - name: Wait for services
-              run: npx wait-on http://localhost:80 -v --timeout 120000
-
             - name: Install Playwright Browsers
               run: npx playwright install --with-deps
 
