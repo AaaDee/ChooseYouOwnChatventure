@@ -19,7 +19,7 @@ services:
       - /usr/src/app/node_modules
       - ./backend/.env:/usr/src/app/.env
     environment:
-      - MONGODB_URI=dummy
+      - MONGODB_URI=mongodb://dummy
     container_name: back
   nginx:
     container_name: nginx
