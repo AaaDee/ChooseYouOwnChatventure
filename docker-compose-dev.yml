@@ -28,5 +28,5 @@ services:
         test: curl -f http://localhost || exit 1
         interval: 10s
         retries: 5
-        start_period: 20s
+        start_period: 60s
         timeout: 10s

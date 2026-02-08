@@ -24,7 +24,7 @@ jobs:
 
             - name: Wait for services
               run: |
-                  npx wait-on http://localhost:80
+                  npx wait-on http://localhost:80 -v --timeout 120000
             - name: Install Playwright Browsers
               run: npx playwright install --with-deps
 
