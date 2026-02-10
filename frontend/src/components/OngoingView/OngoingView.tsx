@@ -13,6 +13,7 @@ export function OngoingView() {
   const requestOngoing = useOngoingRequest();
   const entryOrUserIsLoading = useSelector(selectEntryOrUserLoading);
 
+  // Fallback, shouldn't happen normally
   if (!choices) {
     return null;
   }
