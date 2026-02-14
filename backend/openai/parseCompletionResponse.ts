@@ -1,6 +1,6 @@
-import { Choice, TextEntry } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 import { z } from 'zod';
+import { Choice, TextEntry } from '../types';
 
 const UnformattedChoiceValidator = z.string().array();
 
@@ -9,12 +9,9 @@ interface UnverifiedJson {
 }
 
 export function parseCompletionResponse(response: string): TextEntry {
-  console.log('response:', response);
-
   let stringResponse = response;
 
   if (startsWithBackTicks(stringResponse)) {
-    console.log('removing backticks from prompt response');
     stringResponse = removeBackTicks(stringResponse);
   }
 
@@ -22,7 +19,6 @@ export function parseCompletionResponse(response: string): TextEntry {
   try {
     jsonResponse = JSON.parse(stringResponse) as UnverifiedJson;
   } catch (error) {
-    console.error(error);
     throw new Error('Response is not a valid json');
   }
 
