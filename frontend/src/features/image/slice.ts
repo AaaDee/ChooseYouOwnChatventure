@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit';
-import { ImageDescription } from '../../types';
-import { postRequest } from '../../requests/postRequest';
-import { StateStatus } from '../enums';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import imageData from '../../images/startImage.json';
 import { Endpoints } from '../../requests/endoints';
+import { postRequest } from '../../requests/postRequest';
+import { ImageDescription } from '../../types';
+import { StateStatus } from '../enums';
 
 export interface ImageState {
   image: string;
