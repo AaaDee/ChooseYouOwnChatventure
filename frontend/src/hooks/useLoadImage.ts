@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { selectImageIsRequested } from '../features/image/selectors';
-import { useAppDispatch } from './useAppDispatch';
 import { useSelector } from 'react-redux';
 import { selectEntry } from '../features/entry/selectors';
+import { selectImageIsRequested } from '../features/image/selectors';
 import { fetchImage } from '../features/image/slice';
+import { useAppDispatch } from './useAppDispatch';
 
 export function useLoadImage() {
   const isRequested = useSelector(selectImageIsRequested);
@@ -14,8 +14,8 @@ export function useLoadImage() {
     if (isRequested && entry) {
       void requestImage();
     }
+
     async function requestImage() {
-      console.log('requesting');
       if (!entry) {
         return;
       }
