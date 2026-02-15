@@ -1,8 +1,10 @@
 import express from 'express';
+import 'express-async-errors';
 import { isPasswordCorrect } from '../features/isPasswordCorrect';
 import { signUserToken } from '../features/signUserToken';
 import { User, UserMongooseSchema, UserSchema } from '../models/user';
 import { UserInput } from '../types';
+import { asyncHandler } from './asyncHandler';
 
 export const userRouter = express.Router();
 
@@ -17,8 +19,9 @@ userRouter.post('/create', (_, response) => {
   // the commit history (e.g. commit eb59b70b68979cf9bd6d762c412f2d0cd9798051)
 });
 
-userRouter.post('/login', (request, response) => {
-  void (async function (): Promise<void> {
+userRouter.post(
+  '/login',
+  asyncHandler(async (request, response) => {
     const { username, password } = UserInput.parse(request.body);
 
     let user = null;
@@ -52,5 +55,5 @@ userRouter.post('/login', (request, response) => {
     const token = signUserToken(verified_user);
 
     response.status(200).send({ token, username: verified_user.username });
-  })();
-});
+  })
+);
