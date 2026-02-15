@@ -1,5 +1,4 @@
 import express from 'express';
-import 'express-async-errors';
 import { isPasswordCorrect } from '../features/isPasswordCorrect';
 import { signUserToken } from '../features/signUserToken';
 import { User, UserMongooseSchema, UserSchema } from '../models/user';
