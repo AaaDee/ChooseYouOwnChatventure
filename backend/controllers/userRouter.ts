@@ -1,8 +1,8 @@
 import express from 'express';
-import { User, UserMongooseSchema, UserSchema } from '../models/user';
-import { UserInput } from '../types';
 import { isPasswordCorrect } from '../features/isPasswordCorrect';
 import { signUserToken } from '../features/signUserToken';
+import { User, UserMongooseSchema, UserSchema } from '../models/user';
+import { UserInput } from '../types';
 
 export const userRouter = express.Router();
 
@@ -27,7 +27,6 @@ export const userRouter = express.Router();
 userRouter.post('/login', (request, response) => {
   void (async function (): Promise<void> {
     const { username, password } = UserInput.parse(request.body);
-    console.log('logging in with', username);
 
     let user = null;
     try {
@@ -59,7 +58,6 @@ userRouter.post('/login', (request, response) => {
     const verified_user = user as UserSchema; // user != undefined checked earlier
     const token = signUserToken(verified_user);
 
-    console.log('sending token for', username);
     response.status(200).send({ token, username: verified_user.username });
   })();
 });
