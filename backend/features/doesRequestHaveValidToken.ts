@@ -11,7 +11,7 @@ export function doesRequestHaveValidToken(request: Request): boolean {
 
 export function isTokenValid(authorization: string): boolean {
   if (!process.env.SECRET) {
-    console.log('verifying failed, missing secret');
+    console.error('verifying failed, missing secret');
     return false;
   }
 

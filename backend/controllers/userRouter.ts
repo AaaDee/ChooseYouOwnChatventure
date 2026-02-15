@@ -1,33 +1,27 @@
 import express from 'express';
-import { User, UserMongooseSchema, UserSchema } from '../models/user';
-import { UserInput } from '../types';
 import { isPasswordCorrect } from '../features/isPasswordCorrect';
 import { signUserToken } from '../features/signUserToken';
+import { User, UserMongooseSchema, UserSchema } from '../models/user';
+import { UserInput } from '../types';
+import { asyncHandler } from './asyncHandler';
 
 export const userRouter = express.Router();
 
-// app.post('/user', (request, response) => {
-//   void (async function (): Promise<void> {
-//     const { username, password } = UserInput.parse(request.body);
-//     const saltRounds = 10;
+userRouter.post('/create', (_, response) => {
+  // Due to access to the paid OpenAPI keys in the backend, user creation is currently disabled.
+  return response.status(501).json({
+    error: 'Not Implemented',
+    message: 'User registration is currently under development.'
+  });
 
-//     const passwordHash = await bcrypt.hash(password, saltRounds);
+  // Previously implemented user creation code is temporarily removed, but can be found from
+  // the commit history (e.g. commit eb59b70b68979cf9bd6d762c412f2d0cd9798051)
+});
 
-//     const user = new User({
-//       username,
-//       passwordHash
-//     });
-
-//     const savedUser = await user.save();
-
-//     response.status(201).json(savedUser);
-//   })();
-// });
-
-userRouter.post('/login', (request, response) => {
-  void (async function (): Promise<void> {
+userRouter.post(
+  '/login',
+  asyncHandler(async (request, response) => {
     const { username, password } = UserInput.parse(request.body);
-    console.log('logging in with', username);
 
     let user = null;
     try {
@@ -59,7 +53,6 @@ userRouter.post('/login', (request, response) => {
     const verified_user = user as UserSchema; // user != undefined checked earlier
     const token = signUserToken(verified_user);
 
-    console.log('sending token for', username);
     response.status(200).send({ token, username: verified_user.username });
-  })();
-});
+  })
+);

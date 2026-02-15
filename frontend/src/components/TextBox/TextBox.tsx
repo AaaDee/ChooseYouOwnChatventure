@@ -8,8 +8,6 @@ export function TextBox() {
   const choices = useSelector(selectChoices);
   const hasChoices = choices && choices.length > 0;
 
-  console.log('Choices in component:', choices);
-
   return (
     <StyledTextBox>
       {!hasChoices && <StartView />}

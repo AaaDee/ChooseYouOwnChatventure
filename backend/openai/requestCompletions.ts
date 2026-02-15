@@ -1,10 +1,10 @@
+import OpenAI from 'openai';
 import { ChatCompletion, ChatCompletionMessageParam } from 'openai/resources';
+import { TextEntry } from '../types';
 import { getOpenAIClient } from './getOpenAIClient';
 import { parseCompletionResponse } from './parseCompletionResponse';
-import { TextEntry } from '../types';
-import { OpenAIRoles } from './types';
 import { PROMPT_ERROR_FIX } from './prompts';
-import OpenAI from 'openai';
+import { OpenAIRoles } from './types';
 
 export const requestCompletions = async (
   messages: Array<ChatCompletionMessageParam>
@@ -19,7 +19,6 @@ export const requestCompletions = async (
     return response;
   } catch (error) {
     console.error(error, completionsContent);
-    console.log('reattempting');
 
     messages.push(completions.choices[0].message);
     messages.push({

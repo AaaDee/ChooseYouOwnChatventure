@@ -1,15 +1,15 @@
 import { describe, test, vi } from 'vitest';
+import { isPasswordCorrect } from '../features/isPasswordCorrect';
+import { signUserToken } from '../features/signUserToken';
+import { User } from '../models/user';
 import { mockApp } from '../tests/mockApp';
+import { suppressErrorLogsFromTest } from '../tests/utils';
 
 vi.mock('../models/user');
-import { User } from '../models/user';
 
 vi.mock('../features/isPasswordCorrect');
-import { isPasswordCorrect } from '../features/isPasswordCorrect';
 
 vi.mock('../features/signUserToken');
-import { signUserToken } from '../features/signUserToken';
-import { suppressErrorLogsFromTest } from '../tests/utils';
 
 const app = mockApp();
 
@@ -67,5 +67,14 @@ describe('Login', () => {
       .post('/user/login')
       .send({ username: 'test', password: 'test' })
       .expect(401);
+  });
+});
+
+describe('Create user', () => {
+  test('Returns 501', async () => {
+    await app
+      .post('/user/create')
+      .send({ username: 'test', password: 'test' })
+      .expect(501);
   });
 });

@@ -8,7 +8,11 @@ export const requestImage = async (description: string): Promise<string> => {
   try {
     imageResponse = await getImageResponse(openai, description);
   } catch (error) {
-    throw new Error('unable to get image');
+    throw new Error('error in requesting image');
+  }
+
+  if (!imageResponse) {
+    throw new Error('poorly formatted image response');
   }
 
   return imageResponse;
@@ -17,7 +21,7 @@ export const requestImage = async (description: string): Promise<string> => {
 async function getImageResponse(
   openai: OpenAI,
   description: string
-): Promise<string> {
+): Promise<string | undefined> {
   const prompt = promptImage(description);
 
   const imageResponse = await openai.images.generate({
@@ -29,5 +33,9 @@ async function getImageResponse(
     size: '1024x1024'
   });
 
-  return imageResponse.data[0].url as string;
+  if (!imageResponse.data) {
+    return undefined;
+  }
+
+  return imageResponse.data[0].url;
 }
