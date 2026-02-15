@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import express from 'express';
 import { isPasswordCorrect } from '../features/isPasswordCorrect';
 import { signUserToken } from '../features/signUserToken';
@@ -6,23 +7,29 @@ import { UserInput } from '../types';
 
 export const userRouter = express.Router();
 
-// app.post('/user', (request, response) => {
-//   void (async function (): Promise<void> {
-//     const { username, password } = UserInput.parse(request.body);
-//     const saltRounds = 10;
+userRouter.post('/create', (request, response) => {
+  // Due to access to the paid OpenAPI keys in the backend, user creation is currently disabled.
+  return response.status(501).json({
+    error: 'Not Implemented',
+    message: 'User registration is currently under development.'
+  });
 
-//     const passwordHash = await bcrypt.hash(password, saltRounds);
+  void (async function (): Promise<void> {
+    const { username, password } = UserInput.parse(request.body);
+    const saltRounds = 10;
 
-//     const user = new User({
-//       username,
-//       passwordHash
-//     });
+    const passwordHash = await bcrypt.hash(password, saltRounds);
 
-//     const savedUser = await user.save();
+    const user = new User({
+      username,
+      passwordHash
+    });
 
-//     response.status(201).json(savedUser);
-//   })();
-// });
+    const savedUser = await user.save();
+
+    response.status(201).json(savedUser);
+  })();
+});
 
 userRouter.post('/login', (request, response) => {
   void (async function (): Promise<void> {
