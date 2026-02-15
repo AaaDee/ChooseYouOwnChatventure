@@ -13,6 +13,8 @@ The key technical features of the app are:
 - Comprehensive testing
 - Automated deployment
     - With testing, the core principle is that a PR passing the code check should be ready to go to production without any manual adjustments or follow-up checks to make sure that nothing’s broken
+- Up to date dependencies and frameworks
+    - As the project has been in on/off development while, several version updates and some framework changes have already taken place (e.g. migration from create-react-app to vite, and from jest to vitest)
 
 ## Frontend
 
