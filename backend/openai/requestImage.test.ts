@@ -24,6 +24,14 @@ describe('Image requests', () => {
     mockOpenai(failingMockGenerate);
     await expect(requestImage('test')).rejects.toThrowError('image');
   });
+
+  test('Throws an error with a poorly formatted response', async () => {
+    const failingMockGenerate = vi.fn().mockImplementation(() => {
+      return { something: 'something' }; // misses the url field
+    });
+    mockOpenai(failingMockGenerate);
+    await expect(requestImage('test')).rejects.toThrowError('image');
+  });
 });
 
 function mockOpenai(mock: () => object) {
