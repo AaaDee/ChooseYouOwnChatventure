@@ -1,8 +1,8 @@
 import { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
 import { ChatHistory, PromptResponse } from '../types';
-import { OpenAIRoles } from './types';
 import { PROMPT_INITIAL_CHOICES, promptFurtherChoices } from './prompts';
 import { requestCompletions } from './requestCompletions';
+import { OpenAIRoles } from './types';
 
 export async function requestOngoingPrompt(
   history: ChatHistory
@@ -34,7 +34,7 @@ export async function requestOngoingPrompt(
     messageHistory.push(choiceMessage);
   });
 
-  let completion = null;
+  let completion;
   try {
     completion = await requestCompletions(messageHistory);
   } catch {

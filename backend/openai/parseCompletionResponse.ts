@@ -19,7 +19,7 @@ export function parseCompletionResponse(response: string): TextEntry {
   try {
     jsonResponse = JSON.parse(stringResponse) as UnverifiedJson;
   } catch (error) {
-    throw new Error('Response is not a valid json');
+    throw new Error('Response is not a valid json', { cause: error });
   }
 
   const updatedResponse = {

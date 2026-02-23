@@ -8,13 +8,11 @@ export async function requestStartPrompt(): Promise<PromptResponse> {
     { role: OpenAIRoles.USER, content: PROMPT_INITIAL_CHOICES }
   ];
 
-  let completion = null;
+  let completion;
   try {
     completion = await requestCompletions(startPromptMessages);
   } catch (error) {
-    throw new Error(
-      `unable to create a completion: ${(error as Error).message}`
-    );
+    throw new Error('unable to create a completion', { cause: error });
   }
 
   return {
