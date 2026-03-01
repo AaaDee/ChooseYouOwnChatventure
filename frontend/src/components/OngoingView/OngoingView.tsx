@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import {
   selectChoices,
   selectContent,
-  selectEntryOrUserLoading
+  selectEntryOrImageLoading
 } from '../../features/entry/selectors';
 import { useOngoingRequest } from '../../hooks/useOngoingRequest';
 import { Button } from '../Button/Button';
@@ -11,7 +11,7 @@ export function OngoingView() {
   const choices = useSelector(selectChoices);
   const content = useSelector(selectContent);
   const requestOngoing = useOngoingRequest();
-  const entryOrUserIsLoading = useSelector(selectEntryOrUserLoading);
+  const entryOrImageIsLoading = useSelector(selectEntryOrImageLoading);
 
   // Fallback, shouldn't happen normally
   if (!choices) {
@@ -24,7 +24,7 @@ export function OngoingView() {
       {choices.map((choice) => (
         <Button
           key={choice.index}
-          disabled={entryOrUserIsLoading}
+          disabled={entryOrImageIsLoading}
           onClick={requestOngoing(choice.index)}
         >
           {choice.content}

@@ -7,7 +7,7 @@ export function signUserToken(user: UserSchema) {
   }
 
   const token = jsonwebtoken.sign(
-    { id: user._id, username: user.username },
+    { _id: user._id, username: user.username },
     process.env.SECRET
   );
   return token;

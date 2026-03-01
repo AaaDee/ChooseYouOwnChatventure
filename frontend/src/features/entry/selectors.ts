@@ -11,6 +11,13 @@ export const selectEntryOrUserLoading = (state: RootState) => {
   );
 };
 
+export const selectEntryOrImageLoading = (state: RootState) => {
+  return (
+    state.entry.status === StateStatus.LOADING ||
+    state.image.status == StateStatus.LOADING
+  );
+};
+
 export const selectEntryFailed = (state: RootState) => {
   return state.entry.status === StateStatus.FAILED;
 };
