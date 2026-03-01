@@ -6,6 +6,9 @@ export function signUserToken(user: UserSchema) {
     throw new Error('Secret missing from env');
   }
 
-  const token = jsonwebtoken.sign(user, process.env.SECRET);
+  const token = jsonwebtoken.sign(
+    { _id: user._id, username: user.username },
+    process.env.SECRET
+  );
   return token;
 }

@@ -27,7 +27,9 @@ export function Illustration() {
   return (
     <StyledWrapper>
       {entryOrUserIsLoading && <Spinner text={'Venturing'} />}
-      {imageIsLoading && <Spinner text={'Observing the surroundings'} />}
+      {imageIsLoading && !entryOrUserIsLoading && (
+        <Spinner text={'Observing the surroundings'} />
+      )}
       <StyledImage src={imageSrc} onLoad={() => setImageIsLoading(false)} />
     </StyledWrapper>
   );
