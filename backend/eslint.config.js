@@ -51,7 +51,6 @@ export default defineConfig([
         project: './tsconfig.json'
       }
     },
-
     rules: {
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -71,9 +70,7 @@ export default defineConfig([
     }
   },
   {
-    files: ['test/**'],
-
-    plugins: {},
+    files: ['**/*.test.{ts,js}', '**/*.spec.{ts,js}'],
 
     rules: {
       '@typescript-eslint/unbound-method': 'off'
