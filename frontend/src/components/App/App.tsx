@@ -15,6 +15,7 @@ import { Illustration } from '../Illustration/Illustration';
 import { ErrorBox } from '../ErrorBox.tsx/ErrorBox';
 import { Header } from '../Header/Header';
 import { InfoPage } from '../InfoPage/InfoPage';
+import { ConsentBanner } from '../ConsentBanner/ConsentBanner';
 
 export const App = () => {
   const isFailed = useSelector(selectEntryFailed);
@@ -34,6 +35,7 @@ export const App = () => {
         {!username && <LoginForm />}
         {!isMuted && <AudioPlayer />}
       </StyledBody>
+      <ConsentBanner />
     </StyledApp>
   );
 };

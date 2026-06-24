@@ -3,6 +3,7 @@ import { fetchEntry } from '../features/entry/slice';
 import { useAppDispatch } from './useAppDispatch';
 import { Endpoints } from '../requests/endoints';
 import { setImageStatusToRequested } from '../features/image/slice';
+import { pushDataLayerEvent } from '../gtm';
 
 export function useStartRequest() {
   const [isRequested, setIsRequested] = useState(false);
@@ -23,6 +24,7 @@ export function useStartRequest() {
   }, [dispatch, isRequested]);
 
   function requestStart() {
+    pushDataLayerEvent('adventure_started');
     setIsRequested(true);
   }
   return requestStart;
