@@ -3,6 +3,8 @@ services:
     image: chatventure-front-dev
     build:
       context: ./frontend
+      args:
+        VITE_GTM_ID: ${VITE_GTM_ID:-}
     container_name: front
     volumes:
       - ./frontend:/usr/src/app
