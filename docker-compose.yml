@@ -4,6 +4,8 @@ services:
     image: aaadee/chatventure-front
     build:
       context: ./frontend
+      args:
+        VITE_GTM_ID: ${VITE_GTM_ID:-}
     container_name: front
   back:
     image: aaadee/chatventure-back
