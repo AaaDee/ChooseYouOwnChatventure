@@ -27,9 +27,8 @@ async function getImageResponse(
   const imageResponse = await openai.images.generate({
     prompt,
     n: 1,
-    response_format: 'url',
-    quality: 'standard',
-    model: 'dall-e-3',
+    quality: 'medium',
+    model: 'gpt-image-2',
     size: '1024x1024'
   });
 
@@ -37,5 +36,5 @@ async function getImageResponse(
     return undefined;
   }
 
-  return imageResponse.data[0].url;
+  return imageResponse.data[0].b64_json;
 }

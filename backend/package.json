@@ -20,7 +20,6 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.5",
-    "node": "^24.13.1",
     "openai": "^4.52.0",
     "serve": "^14.2.5",
     "uuid": "^14.0.0",
