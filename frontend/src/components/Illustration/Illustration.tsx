@@ -40,5 +40,5 @@ function formatImageSource(image: string): string {
     return image;
   }
 
-  return `data::image/jpg;base64, ${image}`;
+  return `data:image/png;base64,${image}`;
 }

@@ -6,7 +6,7 @@ vi.mock('./getOpenAIClient');
 import OpenAI from 'openai';
 import { requestImage } from './requestImage';
 
-const mockResponse = { data: [{ url: 'test' }] };
+const mockResponse = { data: [{ b64_json: 'test' }] };
 
 describe('Image requests', () => {
   test('Returns the generated image', async () => {
