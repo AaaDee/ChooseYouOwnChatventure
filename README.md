@@ -2,7 +2,7 @@
 
 A website for AI-generated sword and sorcery adventures.
 
-Currently hosted at [chooseyourownchatventure.net](https://chooseyourownchatventure.net). Due to costs associated with the API-key the page is password-protected, if you are interested in testing it please do reach out.
+Currently not hosted anywhere, if you are interested in testing it please do reach out.
 
 ## Project structure and overview
 
